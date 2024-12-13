@@ -1,5 +1,4 @@
 import { NavLink } from "@/components/Nav";
-import Link from "next/link";
 
 export default function UnderConstruction() {
   return (
