@@ -1,6 +1,4 @@
 import React from "react";
-import maningue from "@/app/assets/mng.jpg";
-import Image from "next/image";
 
 export default function ProductCard({ ...props }) {
   return (

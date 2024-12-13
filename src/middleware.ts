@@ -1,9 +1,8 @@
-import { NextResponse } from 'next/server'
-import React from 'react'
+import { NextRequest, NextResponse } from 'next/server'
 
 const underConstructionPages = ['/about', '/contacto', '/categorias' ]
 
-export default function middleware(request: { nextUrl: { pathname: any; }; url: string | URL | undefined; }) {
+export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (underConstructionPages.includes(pathname)) {

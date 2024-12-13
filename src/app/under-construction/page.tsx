@@ -9,7 +9,7 @@ export default function UnderConstruction() {
       }}
     >
       <h1>🚧 Page Under Construction 🚧</h1>
-      <p>We're working hard to bring you this page. Check back soon!</p>
+      <p>We are working hard to bring you this page. Check back soon!</p>
       <NavLink href="/">Go Back Home</NavLink>
     </main>
   );
