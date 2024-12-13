@@ -1,4 +1,4 @@
-import logo from "../app/assets/icon.png";
+import logo from "./src/app/assets/icon.png";
 import Image from "next/image";
 
 export default function NavIcon() {
