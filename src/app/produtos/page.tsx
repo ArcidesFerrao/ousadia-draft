@@ -1,7 +1,7 @@
 import ProductCard from "@/components/ProductCard";
 import dados from "@/app/assets/dados.json";
 
-export default function page() {
+export default function ProdutosPage() {
   return (
     <main className="py-4">
       <div className="best-products">
@@ -12,7 +12,8 @@ export default function page() {
           {dados &&
             dados.map((producto) => (
               <ProductCard
-                key={producto.id}
+                key={producto.key}
+                id={producto.key}
                 name={producto.name}
                 price={producto.price}
                 imageUrl={producto.image}

@@ -12,19 +12,19 @@ export default function Home() {
       id: 2,
       name: "Love",
       price: "800,00",
-      image: "assets/lv.jpg",
+      image: "/assets/lv.jpg",
     },
     {
       id: 3,
       name: "Nhenhentsar",
       price: "750,00",
-      image: "assets/nhenhe.jpg",
+      image: "/assets/nhenhe.jpg",
     },
     {
       id: 4,
       name: "Nhenhentsar",
       price: "750,00",
-      image: "assets/nhenhe.jpg",
+      image: "/assets/nhenhe.jpg",
     },
   ];
 
@@ -41,6 +41,7 @@ export default function Home() {
             dados.map((producto) => (
               <ProductCard
                 key={producto.id}
+                id={producto.id}
                 name={producto.name}
                 price={producto.price}
                 imageUrl={producto.image}

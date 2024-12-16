@@ -1,14 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProductCard({ ...props }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div className="product-card flex flex-col my-4 overflow-hidden">
-      <Link href={`/produtos/${props.key}`}>
+      <Link href={`/produtos/${props.id}`}>
         <div className="product-image ">
-          <img
+          <Image
             src={props.imageUrl}
             alt="Maningue Cenas"
             width={220}

@@ -1,26 +1,26 @@
 [
     {
-      "id": 1,
+      "key": 1,
       "name": "Maningue Cenas",
       "price": "900,00",
       "image": "/assets/mng.jpg"
     },
     {
-      "id": 2,
+      "key": 2,
       "name": "Love",
       "price": "800,00",
-      "image": "assets/lv.jpg"
+      "image": "/assets/lv.jpg"
     },
     {
-      "id": 3,
+      "key": 3,
       "name": "Nhenhentsar",
       "price": "750,00",
-      "image": "assets/nhenhe.jpg"
+      "image": "/assets/nhenhe.jpg"
     },
     {
-      "id": 4,
+      "key": 4,
       "name": "Nhenhentsar",
       "price": "750,00",
-      "image": "assets/nhenhe.jpg"
+      "image": "/assets/nhenhe.jpg"
     }
   ]
