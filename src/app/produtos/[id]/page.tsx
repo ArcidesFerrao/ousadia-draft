@@ -13,8 +13,8 @@ export default async function ProductoPage({
   //   console.log(produto);
   if (!produto) {
     return (
-      <main>
-        <p>Produto nao encontrado</p>
+      <main className="items-center justify-center ">
+        <p className="font-medium  ">Produto nao encontrado</p>
       </main>
     );
   }

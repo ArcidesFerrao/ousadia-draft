@@ -1,4 +1,5 @@
 import ProductCard from "@/components/ProductCard";
+import Link from "next/link";
 
 export default function Home() {
   const dados = [
@@ -33,8 +34,9 @@ export default function Home() {
       <div className="banner-commercial"></div>
 
       <div className="best-products">
-        <div className="title">
+        <div className="list-title flex justify-between items-center">
           <h2>Mais Vendidos</h2>
+          <Link href="/produtos">Ver mais</Link>
         </div>
         <div className="products-list flex flex-auto justify-between">
           {dados &&

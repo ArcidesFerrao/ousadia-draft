@@ -9,7 +9,7 @@
   --light-grey: #bfbfbf;
   --green-color: #4dd645;
   --input-color: #bfbfbf;
-
+  --border-color: rgba(0, 0, 0, 0.25);
   --medium-border: 8px;
   --small-border: 4px;
 
@@ -89,6 +89,11 @@ input {
   font-size: small;
 }
 
+footer a:hover,
+nav a:hover {
+  color: var(--input-color);
+}
+
 nav a,
 footer a {
   font-size: 14px;
@@ -116,7 +121,11 @@ ol span {
 ol li {
   line-height: 1;
   height: fit-content;
-  color: rgba(50, 50, 50, 0.8);
+  color: rgba(50, 50, 50, 0.7);
+}
+
+ol li a:hover {
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .breadcrumb-section {
@@ -149,12 +158,12 @@ ol li {
   border-radius: 8px 8px 0 0;
 }
 .product-card:hover {
-  box-shadow: 5px -5px 3px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 2px -3px 3px 1px rgba(0, 0, 0, 0.15);
 }
 
 .products-list {
   margin: 1rem 0;
-  border-top: 2px solid var(--dark-grey);
+  border-top: 2px solid var(--border-color);
 }
 
 .nav-icon {
@@ -216,4 +225,13 @@ ol li {
 .button-quero:hover {
   background-color: #198819;
   color: #f4f5fa;
+}
+
+.list-title a:hover {
+  /* font-weight: 400; */
+  color: var(--dark-grey);
+}
+.list-title a {
+  color: var(--input-color);
+  font-weight: 300;
 }

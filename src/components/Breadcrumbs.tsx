@@ -18,12 +18,22 @@ type BreadcrumbsProps = {
 type BreadcrumbItemProps = {
   children: ReactNode;
   href: string;
+  isCurrentPage?: boolean;
 };
 
-const BreadcrumbsItem = ({ children, href, ...props }: BreadcrumbItemProps) => {
+const BreadcrumbsItem = ({
+  children,
+  href,
+  isCurrentPage,
+  ...props
+}: BreadcrumbItemProps) => {
   return (
     <li {...props}>
-      <Link href={href}> {children} </Link>
+      {isCurrentPage ? (
+        <span>{children}</span>
+      ) : (
+        <Link href={href}> {children} </Link>
+      )}
     </li>
   );
 };
@@ -82,13 +92,15 @@ export const Breadcrumbs = ({
       {paths !== "/" && (
         <BreadcrumbsContainer>
           {withHome && <BreadcrumbsItem href="/">Home</BreadcrumbsItem>}
-          {pathItems.map((item) => {
-            return (
-              <BreadcrumbsItem key={item.path} href={`/${item.path}`}>
-                {item.name}
-              </BreadcrumbsItem>
-            );
-          })}
+          {pathItems.map((item, index) => (
+            <BreadcrumbsItem
+              key={item.path}
+              href={`/${item.path}`}
+              isCurrentPage={index === pathItems.length - 1}
+            >
+              {item.name}
+            </BreadcrumbsItem>
+          ))}
         </BreadcrumbsContainer>
       )}
       <BreadcrumbsContext.Provider value={context}>
