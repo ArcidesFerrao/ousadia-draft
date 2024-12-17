@@ -32,10 +32,14 @@ const OptionButton = () => {
         <div className="payment-details flex flex-col rounded-lg p-4 gap-4">
           <label htmlFor="numero">Numero de telefone</label>
           <input
-            className="w-full rounded-sm p-1"
+            className="w-full rounded-sm px-2 p-1"
             type="tel"
+            placeholder="841234567"
+            pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{3}"
+            maxLength={9}
             name="numero"
             id="numero"
+            required
           />
         </div>
       ) : (
