@@ -22,7 +22,7 @@ export default function Footer() {
           <p>© 2024 - Todos direitos reservados</p>
           <p>
             Criado por:{` `}
-            <NavLink href="hhttps://portfolio-arcidesferraos-projects.vercel.app/">
+            <NavLink href="https://portfolio-arcidesferraos-projects.vercel.app/">
               {" "}
               Arcides Ferrao
             </NavLink>
