@@ -1,6 +1,7 @@
 import React from "react";
 import dados from "@/app/assets/dados.json";
 import Image from "next/image";
+import BuyButton from "@/components/BuyButton";
 
 export default async function ProductoPage({
   params,
@@ -49,7 +50,7 @@ export default async function ProductoPage({
               <h4>S</h4>
             </div>
             <div className="buy-button flex items-center justify-center rounded-lg overflow-hidden">
-              <button className="button-quero p-4">Eu Quero</button>
+              <BuyButton />
             </div>
           </div>
         </div>

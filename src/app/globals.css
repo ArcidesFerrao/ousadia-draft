@@ -235,3 +235,24 @@ ol li a:hover {
   color: var(--input-color);
   font-weight: 300;
 }
+
+.payment {
+  background-color: var(--light-grey);
+}
+
+.payment-details {
+  background-color: var(--background);
+
+  input {
+    background-color: var(--input-color);
+    border: var(--background);
+  }
+}
+
+.choose button:hover {
+  color: var(--background);
+}
+
+.buy-button {
+  transition: all 500ms ease;
+}
