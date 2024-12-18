@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ousadia Store Web Application
 
-## Getting Started
+Welcome to the Ousadia Store web application! This project is an e-commerce platform designed to sell T-shirts, Shorts, and Caps (Bonés) with free delivery within Maputo, Mozambique. Built with modern web technologies, the application includes features for both customers and administrators.
 
-First, run the development server:
+## Features
+
+### For Customers:
+
+- Product Categories: Browse through T-shirts, Shorts, and Caps.
+
+- Product Pages: View detailed information about each product.
+
+- Cart Management: Add, edit, and remove items from the cart.
+
+- Checkout: Complete purchases with free delivery in Maputo.
+
+- Payment Integration: Pay via Mpesa and credit/debit cards (using Stripe).
+
+### For Administrators:
+
+- Dashboard: Monitor store performance (sales, popular products, etc.).
+
+- Product Management:
+
+  - Add new products.
+
+  - Edit existing products.
+
+  - Delete products.
+
+- Reports: Access analytics about sales and customer activity.
+
+## Tech Stack
+
+### Frontend
+
+- Framework: Next.js (App Router)
+
+- Styling: TailwindCSS
+
+### Backend
+
+- Database: Prisma with PostgreSQL
+
+- APIs: Built using Next.js API Routes
+
+### Deployment
+
+- Hosting: AWS (Elastic Beanstalk or Amplify)
+
+- Storage: AWS S3 for product images
+
+### Payment Integration
+
+- Mpesa: Local payment system for Mozambique
+
+- Stripe: For credit/debit card transactions
+
+Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+src/
+└── app/
+├── admin/
+│ ├── layout.tsx # Admin layout
+│ ├── page.tsx # Admin dashboard
+│ ├── produtos/
+│ │ ├── page.tsx # Product list
+│ │ ├── criar/page.tsx # Add product
+│ │ ├── [id]/editar.tsx # Edit product
+│ ├── relatorios/
+│ └── page.tsx # Reports and analytics
+├── categorias/
+│ ├── page.tsx # Categories overview
+│ ├── [categoria]/page.tsx # Category products
+├── produtos/
+│ └── [id]/page.tsx # Product details
+├── carrinho/
+│ └── page.tsx # Shopping cart
+├── checkout/
+│ └── page.tsx # Checkout page
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/yourusername/ousadia-store.git
+   cd ousadia-store
+   ```
 
-## Learn More
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set up the database:
 
-To learn more about Next.js, take a look at the following resources:
+   - Update the `DATABASE_URL` in `.env` with your PostgreSQL connection string.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   - Run Prisma migrations:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npx prisma migrate dev
+   ```
 
-## Deploy on Vercel
+4. Start the development server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. Access the app at http://localhost:3000.
+
+## Deployment
+
+1. Configure AWS services:
+
+   - Set up RDS for the database.
+
+   - Use S3 for storing product images.
+
+2. Deploy the application using AWS Amplify or Elastic Beanstalk.
+
+3. Update environment variables for production in AWS.
+
+## Future Improvements
+
+- Add multi-language support (e.g., Portuguese and English).
+
+- Implement customer accounts for better user experience.
+
+- Enable order tracking for customers.
+
+## License
+
+This project is licensed under the MIT License.
