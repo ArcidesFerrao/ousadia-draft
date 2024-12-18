@@ -10,8 +10,6 @@ Welcome to the Ousadia Store web application! This project is an e-commerce plat
 
 - Product Pages: View detailed information about each product.
 
-- Cart Management: Add, edit, and remove items from the cart.
-
 - Checkout: Complete purchases with free delivery in Maputo.
 
 - Payment Integration: Pay via Mpesa and credit/debit cards (using Stripe).
@@ -129,6 +127,8 @@ src/
 ## Future Improvements
 
 - Add multi-language support (e.g., Portuguese and English).
+
+- Cart Management: Add, edit, and remove items from the cart.
 
 - Implement customer accounts for better user experience.
 
