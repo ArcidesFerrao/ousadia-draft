@@ -35,3 +35,32 @@ export default function ProductCard({ ...props }) {
     </div>
   );
 }
+
+export const DashProductCard = ({ ...props }) => {
+  return (
+    <div className="dash-product-card flex gap-4 p-4 rounded-lg">
+      <div className="product-image ">
+        <Image
+          src={props.imageUrl}
+          alt="Maningue Cenas"
+          width={80}
+          height={80}
+        />
+      </div>
+      <div className="product-card-detail flex flex-col justify-between ">
+        <div className="detail-head">
+          <div className="product-name">
+            <h3>{props.name}</h3>
+          </div>
+          <div className="product-name">
+            <h2>{props.price}</h2>
+          </div>
+        </div>
+        <div className="detail-footer flex gap-2">
+          <h3>12</h3>
+          <p>Pedidos</p>
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -9,6 +9,9 @@
   --light-grey: #bfbfbf;
   --green-color: #4dd645;
   --input-color: #bfbfbf;
+
+  --admin-card-hover: #454545;
+
   --border-color: rgba(0, 0, 0, 0.25);
   --medium-border: 8px;
   --small-border: 4px;
@@ -166,6 +169,11 @@ ol li a:hover {
   border-top: 2px solid var(--border-color);
 }
 
+.nav-icon-admin {
+  position: absolute;
+  top: -4px;
+}
+
 .nav-icon {
   position: absolute;
   left: 50%;
@@ -200,8 +208,9 @@ ol li a:hover {
   display: inline-block;
 }
 
-.categorias:hover .menu-categorias {
-  display: flex;
+.nav-links .categorias:hover .menu-categorias {
+  z-index: 99;
+  opacity: 1;
 }
 
 .menu-categorias {
@@ -210,9 +219,10 @@ ol li a:hover {
   width: max-content;
   background-color: #f4f5fa;
   color: #323232;
-  display: none;
-  overflow: auto;
-  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  z-index: -999;
+  /* overflow: auto; */
+  box-shadow: 0px 4px 35px 2px rgba(0, 0, 0, 0.4);
 }
 
 .button-quero {
@@ -255,4 +265,76 @@ ol li a:hover {
 
 .buy-button {
   transition: all 500ms ease;
+}
+
+.admin-products,
+.admin-main {
+  align-items: center;
+  background-color: var(--foreground);
+  width: 100%;
+  max-width: none;
+  padding: 1rem;
+}
+
+.admin-main header h2 {
+  color: var(--input-color);
+}
+
+.dash-card {
+  cursor: pointer;
+  color: var(--input-color);
+  background-color: var(--dark-grey);
+  border: solid 2px var(--dark-grey);
+  h3 {
+    font-weight: 500;
+  }
+  h2 {
+    font-weight: 600;
+  }
+  h2,
+  h3,
+  p {
+    font-size: 18px;
+    letter-spacing: 0.6px;
+  }
+}
+
+.dash-card:hover {
+  background-color: var(--admin-card-hover);
+  border: solid 2px var(--input-color);
+}
+
+.dash-card-most {
+  color: var(--input-color);
+
+  background-color: var(--dark-grey);
+
+  h3 {
+    font-weight: 500;
+  }
+  h2 {
+    font-weight: 600;
+  }
+  h2,
+  h3,
+  p {
+    font-size: 18px;
+    letter-spacing: 0.6px;
+  }
+}
+
+.dash-product-card {
+  border: solid 2px var(--input-color);
+  cursor: pointer;
+}
+
+.dash-product-card:hover {
+  background-color: var(--foreground);
+  border: solid 2px var(--admin-card-hover);
+}
+
+.admin-links a {
+  font-size: larger;
+  padding: 0 1rem;
+  font-weight: 200;
 }
