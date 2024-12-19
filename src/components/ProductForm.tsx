@@ -20,10 +20,10 @@ export default function ProductForm() {
   const [priceFormat, setPriceFormat] = useState<number | null>(null);
   const [errorList, setErrorList] = useState<ErrorList>({});
   const [categoriesL, setCategoriesL] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>("5");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedCategory(event.target.value);
+    setSelectedCategory(event.target.value.toString());
     console.log(selectedCategory);
   };
 
