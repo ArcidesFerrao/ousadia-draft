@@ -384,12 +384,83 @@ table thead tr th {
 .radio .radio-option {
   cursor: pointer;
   padding: 0.4rem 1rem;
-  border: var(--foreground);
-  background-color: var(--admin-card-hover);
+  font-size: small;
+  font-weight: 300;
+  border: 1px solid var(--foreground);
+  background-color: var(--foreground);
   border-radius: 4px;
   transition: background-color 0.3s, border-color 0.3s;
 }
 
 .radio .radio-option:hover {
+  border: 1px solid var(--input-color);
+}
+
+.radio input[type="radio"]:checked + .radio-option {
+  color: var(--foreground);
+  background-color: var(--light-grey);
+  border: 1px solid var(--input-color);
+}
+
+.form-product input[type="number"] {
+  width: 60px;
+  color: var(--dark-grey);
+
+  /* color: var(--input-color); */
+}
+
+.form-product input {
+  background-color: var(--light-grey);
+  color: var(--dark-grey);
+  border-radius: 4px;
+  padding: 0 0.4rem;
+}
+
+.form-product {
   background-color: var(--dark-grey);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.radio .radio-option {
+  padding: 0.4rem 0.5rem;
+}
+
+.sideImage label:hover {
+  background-color: var(--admin-card-hover);
+}
+.sideImage label {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+  font-size: larger;
+  cursor: pointer;
+  width: 6rem;
+  height: 6rem;
+  border: solid 1px var(--background);
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.sideImage input {
+  opacity: 0;
+  height: 0;
+  width: 1rem;
+}
+
+.sideImage h3 {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.form-product input[type="submit"] {
+  background-color: var(--foreground);
+  padding: 0.4rem;
+  font-size: larger;
+  text-transform: uppercase;
+}
+
+.form-product input[type="submit"]:hover {
+  color: var(--light-grey);
 }
