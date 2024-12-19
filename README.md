@@ -112,6 +112,76 @@ src/
 
 5. Access the app at http://localhost:3000.
 
+## Setup Database
+
+### 1. Install Prisma and Its Dependencies
+
+Install Prisma and the necessary database driver:
+
+```bash
+Copy code
+npm install prisma --save-dev
+npm install @prisma/client
+```
+
+### 2. Initialize Prisma
+
+Run the following command to initialize Prisma in your project. This will create a prisma folder and a schema.prisma file.
+
+```bash
+Copy code
+npx prisma init
+```
+
+### 3. Configure the `schema.prisma` File
+
+Edit the `schema.prisma` file to define your database connection and models. For example:
+
+```postgresql
+generator client {
+provider = "prisma-client-js"
+}
+
+datasource db {
+provider = "postgresql" // Change this based on your database (e.g., "mysql" or "sqlite")
+url      = env("DATABASE_URL")
+}
+
+model User {
+id    Int     @id @default(autoincrement())
+name  String
+email String  @unique
+}
+```
+
+### 4. Set Up the Database Connection
+
+1.  Add the `DATABASE_URL` environment variable to your `.env` file:
+
+    ```bash
+    DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
+    ```
+
+    Replace `postgresql://user:password@localhost:5432/mydb` with your actual database connection string.
+
+2.  Set up your database (if it isn’t already running).
+
+### 5. Generate Prisma Client
+
+Run the following command to generate the Prisma Client:
+
+```bash
+npx prisma generate
+```
+
+### 6. Migrate the Database
+
+To apply your schema changes to the database, create and run migrations:
+
+```bash
+npx prisma migrate dev --name init
+```
+
 ## Deployment
 
 1. Configure AWS services:
@@ -137,3 +207,7 @@ src/
 ## License
 
 This project is licensed under the MIT License.
+
+```
+
+```
