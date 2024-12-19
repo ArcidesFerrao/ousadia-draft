@@ -49,3 +49,11 @@ export const DashboardCardMost = ({ children }: { children: ReactNode }) => {
     </section>
   );
 };
+
+export const DashBoardOverview = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="dashboard flex justify-around w-full max-w-fit gap-5">
+      {children}
+    </div>
+  );
+};

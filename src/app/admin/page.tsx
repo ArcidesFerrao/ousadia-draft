@@ -1,7 +1,8 @@
 import DashboardCard, {
   DashboardCardMost,
   DashboardCardTotal,
-} from "@/components/DashboardCard";
+  DashBoardOverview,
+} from "@/components/Dashboard";
 import { DashProductCard } from "@/components/ProductCard";
 import cart from "@/app/assets/shopping-cart.png";
 import chart from "@/app/assets/chart-histogram.png";
@@ -33,12 +34,12 @@ export default function AdminPage() {
       <header>
         <h2>Overview</h2>
       </header>
-      <div className="dashboard flex justify-around w-full max-w-fit gap-5">
+      <DashBoardOverview>
         <DashboardCardTotal title="Total de Vendas" subtitle="220.00" />
         <DashboardCard title="Produtos" subtitle="86" iconUrl={cart.src} />
         <DashboardCard title="Pedidos" subtitle="34" iconUrl={bag.src} />
         <DashboardCard title="Clientes" subtitle="12" iconUrl={chart.src} />
-      </div>
+      </DashBoardOverview>
       <DashboardCardMost>
         {dados &&
           dados.map((produto) => (

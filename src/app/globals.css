@@ -131,6 +131,23 @@ ol li a:hover {
   color: rgba(0, 0, 0, 0.8);
 }
 
+table {
+  background-color: var(--admin-card-hover);
+  border-radius: 8px;
+}
+
+tr th,
+tr td {
+  padding: 0.4rem 1rem;
+}
+table tbody tr td {
+  font-weight: 300;
+}
+
+table thead tr th {
+  text-align: start;
+}
+
 .breadcrumb-section {
   background-color: var(--background);
   color: var(--foreground);
@@ -337,4 +354,42 @@ ol li a:hover {
   font-size: larger;
   padding: 0 1rem;
   font-weight: 200;
+}
+
+.add-button-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.add-button {
+  display: flex;
+  border: 1px solid var(--input-color);
+  height: fit-content;
+  padding: 0.4rem 1rem;
+  gap: 4px;
+  color: var(--input-color);
+  border-radius: 4px;
+}
+
+.add-button:hover {
+  /* background-color: var(--input-color); */
+  color: var(--background);
+  border-radius: 0;
+}
+
+.radio input[type="radio"] {
+  display: none;
+}
+
+.radio .radio-option {
+  cursor: pointer;
+  padding: 0.4rem 1rem;
+  border: var(--foreground);
+  background-color: var(--admin-card-hover);
+  border-radius: 4px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.radio .radio-option:hover {
+  background-color: var(--dark-grey);
 }
