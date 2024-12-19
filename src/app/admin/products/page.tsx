@@ -49,7 +49,7 @@ const ProductsTable = async () => {
             <td>{product.color}</td>
             <td>{product.size}</td>
             <td>{product.stock}</td>
-            <td>{product.price}</td>
+            <td>{product.price}.00 MZN</td>
           </tr>
         ))}
         <tr>

@@ -1,23 +1,50 @@
 "use client";
+
 import { addProduct } from "@/actions/products";
 import React, { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
+// import { Categories } from "./Categories";
 
 type ErrorList = {
-  [key: string]: string;
+  [key: string]: string[];
+};
+
+type Category = {
+  id: number;
+  name: string;
+  description: string | null;
 };
 
 export default function ProductForm() {
   const [state, action, pending] = useActionState(addProduct, null);
   const [priceFormat, setPriceFormat] = useState<number | null>(null);
   const [errorList, setErrorList] = useState<ErrorList>({});
+  const [categoriesL, setCategoriesL] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>("5");
+
+  const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedCategory(event.target.value);
+    console.log(selectedCategory);
+  };
 
   useEffect(() => {
     if (state?.errors) {
-      setErrorList(state.errors);
-      // console.log(state.errors);
+      setErrorList(state?.errors);
     }
-  }, [state]);
+
+    const getCategories = async () => {
+      try {
+        const res = await fetch("/api/categories");
+        if (!res.ok) throw new Error("Error fetching categories");
+        const categoryData = await res.json();
+        setCategoriesL(categoryData);
+      } catch (error) {
+        console.error("Error fetching categories: ", error);
+      }
+    };
+
+    getCategories();
+  }, [state?.errors]);
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? parseFloat(e.target.value) : null;
@@ -39,6 +66,7 @@ export default function ProductForm() {
                 type="number"
                 id="price"
                 name="price"
+                min={100}
                 value={priceFormat !== null ? priceFormat.toString() : ""}
                 onChange={handlePriceChange}
               />
@@ -51,45 +79,22 @@ export default function ProductForm() {
               </span>
             </div>
           </div>
+
+          {/* <Categories onCategoryChange={handleCategoryChange} /> */}
           <div className="category flex justify-between">
             <h3>Categoria:</h3>
             <div className="radio-category flex gap-2">
-              <label className="radio">
-                <input
-                  type="radio"
-                  name="category"
-                  id="category"
-                  value="T-shirts"
-                />
-                <span className="radio-option">T-Shirts</span>
-              </label>
-              <label className="radio">
-                <input
-                  type="radio"
-                  name="category"
-                  id="category"
-                  value="bones"
-                />
-                <span className="radio-option">Bones</span>
-              </label>
-              <label className="radio">
-                <input
-                  type="radio"
-                  name="category"
-                  id="category"
-                  value="collabs"
-                />
-                <span className="radio-option">Collabs</span>
-              </label>
-              <label className="radio">
-                <input
-                  type="radio"
-                  name="category"
-                  id="category"
-                  value="marcas"
-                />
-                <span className="radio-option">Marcas</span>
-              </label>
+              {categoriesL.map((category) => (
+                <label key={category.id} className="radio">
+                  <input
+                    type="radio"
+                    name="category"
+                    value={category.id}
+                    onChange={handleCategoryChange}
+                  />
+                  <span className="radio-option">{category.name}</span>
+                </label>
+              ))}
             </div>
           </div>
           <div className="bottom-section flex justify-between">
