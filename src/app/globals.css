@@ -464,3 +464,7 @@ table thead tr th {
 .form-product input[type="submit"]:hover {
   color: var(--light-grey);
 }
+
+.submit-button:disabled {
+  color: var(--foreground);
+}

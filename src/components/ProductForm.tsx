@@ -1,10 +1,23 @@
 "use client";
-import React, { useState } from "react";
-import { useFormState } from "react-dom";
+import { addProduct } from "@/actions/products";
+import React, { useActionState, useEffect, useState } from "react";
+import { useFormStatus } from "react-dom";
+
+type ErrorList = {
+  [key: string]: string;
+};
 
 export default function ProductForm() {
-  const [error, action] = useFormState(addProduct, {});
+  const [state, action, pending] = useActionState(addProduct, null);
   const [priceFormat, setPriceFormat] = useState<number | null>(null);
+  const [errorList, setErrorList] = useState<ErrorList>({});
+
+  useEffect(() => {
+    if (state?.errors) {
+      setErrorList(state.errors);
+      // console.log(state.errors);
+    }
+  }, [state]);
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? parseFloat(e.target.value) : null;
@@ -13,12 +26,12 @@ export default function ProductForm() {
   return (
     <div className="form-section flex flex-col items-center py-4 gap-4">
       <h2>Adicionar Produto</h2>
-      <div className="form-product">
-        <form action="" className="flex flex-col gap-6 p-4 h-fit">
+      <div className="form-product flex flex-col">
+        <form action={action} className="flex flex-col gap-6 p-4 h-fit">
           <div className="name-price flex gap-4">
             <div className="name  flex justify-between">
               <label htmlFor="name">Nome:</label>
-              <input type="text" id="name" name="name" />
+              <input type="text" id="name" name="name" disabled={pending} />
             </div>
             <div className="price flex gap-2 items-center">
               <label htmlFor="price">Preco:</label>
@@ -45,20 +58,25 @@ export default function ProductForm() {
                 <input
                   type="radio"
                   name="category"
-                  id="shirts"
+                  id="category"
                   value="T-shirts"
                 />
                 <span className="radio-option">T-Shirts</span>
               </label>
               <label className="radio">
-                <input type="radio" name="category" id="bones" value="bones" />
+                <input
+                  type="radio"
+                  name="category"
+                  id="category"
+                  value="bones"
+                />
                 <span className="radio-option">Bones</span>
               </label>
               <label className="radio">
                 <input
                   type="radio"
                   name="category"
-                  id="collabs"
+                  id="category"
                   value="collabs"
                 />
                 <span className="radio-option">Collabs</span>
@@ -67,7 +85,7 @@ export default function ProductForm() {
                 <input
                   type="radio"
                   name="category"
-                  id="marcas"
+                  id="category"
                   value="marcas"
                 />
                 <span className="radio-option">Marcas</span>
@@ -80,9 +98,9 @@ export default function ProductForm() {
                 <label htmlFor="color">Cor:</label>
                 <input type="text" id="color" name="color" />
               </div>
-              <div className="marca flex justify-between">
-                <label htmlFor="marca">Marca:</label>
-                <input type="text" id="marca" name="marca" />
+              <div className="brand flex justify-between">
+                <label htmlFor="brand">Marca:</label>
+                <input type="text" id="brand" name="brand" />
               </div>
               <div className="quantidade flex justify-between">
                 <label htmlFor="stock">Quantidade:</label>
@@ -165,9 +183,33 @@ export default function ProductForm() {
               </div>
             </div>
           </div>
-          <input type="submit" name="submit" id="submit" value="Add" />
+          <SubmitButton />
         </form>
+        {errorList && (
+          <ul>
+            {Object.entries(errorList).map(([key, value]) => (
+              <li className="error" key={key}>
+                {key}: {value}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
 }
+
+const SubmitButton = () => {
+  const { pending } = useFormStatus();
+
+  return (
+    <input
+      className={pending ? "sudmit-button" : ""}
+      type="submit"
+      name="submit"
+      id="submit"
+      value="Add"
+      disabled={pending}
+    />
+  );
+};
