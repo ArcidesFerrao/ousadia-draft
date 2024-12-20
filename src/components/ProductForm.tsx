@@ -1,6 +1,7 @@
 "use client";
 
 import { addProduct } from "@/actions/products";
+import { UploadButton } from "@/utils/uploadthing";
 import React, { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 // import { Categories } from "./Categories";
@@ -187,6 +188,15 @@ export default function ProductForm() {
                 />
               </div>
             </div>
+          </div>
+          <div className="imagesUpload">
+            <UploadButton
+              endpoint="imageUploader"
+              onClientUploadComplete={(res) => {
+                console.log("Files: ", res);
+                alert("Upload Completed");
+              }}
+            />
           </div>
           <SubmitButton />
         </form>
