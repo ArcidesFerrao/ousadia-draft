@@ -23,7 +23,7 @@ const addSchema = z.object({
     size: z.string().min(1),
     stock: z.coerce.number().int().min(1),
     price: z.coerce.number().int().min(1),
-    image: imageSchema,
+    image: z.array(ProductImageSchema).optional(),
 })
 
 export async function addProduct(prevState: unknown, formData: FormData) {
