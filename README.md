@@ -1,6 +1,6 @@
 # Ousadia Store Web Application
 
-Welcome to the Ousadia Store web application! This project is an e-commerce platform designed to sell T-shirts, Shorts, and Caps (Bonés) with free delivery within Maputo, Mozambique. Built with modern web technologies, the application includes features for both customers and administrators.
+Welcome to the Ousadia Store web application! This project is an e-commerce platform designed to sell T-shirts, Shorts, and Caps (Bonés) with free delivery within Maputo, Mozambique. Built with modern web technologies, the application includes customer and administrator features.
 
 ## Features
 
@@ -207,7 +207,3 @@ npx prisma migrate dev --name init
 ## License
 
 This project is licensed under the MIT License.
-
-```
-
-```
