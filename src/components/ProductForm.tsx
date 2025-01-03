@@ -2,8 +2,12 @@
 
 import { addProduct } from "@/actions/products";
 import { UploadDropzone } from "@/utils/uploadthing";
+import Image from "next/image";
 import React, { useActionState, useEffect, useState } from "react";
+import { useForm } from "@conform-to/react";
 import { useFormStatus } from "react-dom";
+import { parseWithZod } from "@conform-to/zod";
+import { addSchema } from "@/schema/productSchema";
 // import { Categories } from "./Categories";
 
 type ErrorList = {
@@ -17,11 +21,21 @@ type Category = {
 };
 
 export default function ProductForm() {
-  const [state, action, pending] = useActionState(addProduct, null);
+  const [state, action, pending] = useActionState(addProduct, undefined);
   const [priceFormat, setPriceFormat] = useState<number | null>(null);
   const [errorList, setErrorList] = useState<ErrorList>({});
   const [categoriesL, setCategoriesL] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [mainImage, setMainImage] = useState<string>();
+  const [backImage, setBackImage] = useState<string>();
+
+  const [form] = useForm({
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: addSchema });
+    },
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+  });
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedCategory(event.target.value.toString());
@@ -51,11 +65,36 @@ export default function ProductForm() {
     const value = e.target.value ? parseFloat(e.target.value) : null;
     setPriceFormat(value);
   };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = {
+      name: form.value?.name,
+      price: form.value?.price,
+      category: form.value?.category,
+      color: form.value?.color,
+      brand: form.value?.brand,
+      stock: form.value?.stock,
+      size: form.value?.size,
+      mainImage,
+      backImage,
+    };
+
+    console.log("Form Data: ", formData);
+    form.onSubmit(e);
+  };
+
   return (
     <div className="form-section flex flex-col items-center py-4 gap-4">
       <h2>Adicionar Produto</h2>
       <div className="form-product flex flex-col">
-        <form action={action} className="flex flex-col gap-6 p-4 h-fit">
+        <form
+          id={form.id}
+          onSubmit={handleSubmit}
+          action={action}
+          className="flex flex-col gap-6 p-4 h-fit"
+        >
           <div className="name-price flex gap-4">
             <div className="name  flex justify-between">
               <label htmlFor="name">Nome:</label>
@@ -142,85 +181,55 @@ export default function ProductForm() {
               </div>
             </div>
           </div>
-          {/* <div className="images-section">
-            <div className="image flex justify-between">
-              <div className="sideImage flex flex-col gap-2">
-                <h3>Main Image</h3>
-                <label htmlFor="mainImage">+</label>
-                <input
-                  type="file"
-                  id="mainImage"
-                  name="mainImage"
-                  accept="image/jpeg"
-                />
-              </div>
-              <div className="sideImage flex flex-col gap-2">
-                <h3>Side Image</h3>
 
-                <label htmlFor="sideImage">+</label>
-                <input
-                  type="file"
-                  id="sideImage"
-                  name="sideImage"
-                  accept="image/jpeg"
+          <div className="imagesUpload flex  gap-4">
+            <div className="main-image-upload flex flex-col gap-4">
+              <h3>Main Image</h3>
+              {mainImage ? (
+                <Image
+                  src={mainImage}
+                  width={300}
+                  height={300}
+                  alt="main image"
                 />
-              </div>
-              <div className="sideImage flex flex-col gap-2">
-                <h3>Side Image</h3>
-
-                <label htmlFor="sideImage">+</label>
-                <input
-                  type="file"
-                  id="sideImage"
-                  name="sideImage"
-                  accept="image/jpeg"
-                />
-              </div>
-              <div className="backImage flex flex-col gap-2">
-                <h3>Back Image</h3>
-
+              ) : (
                 <UploadDropzone
+                  className="ut-labe:text-md ut-allowed-content:ut-uploading:text-red-200"
                   endpoint="imageUploader"
-                  onClientUploadComplete={(res) => {
-                    console.log("Files: ", res);
+                  onClientUploadComplete={(resMain) => {
+                    console.log("Files: ", resMain);
+                    setMainImage(resMain[0].url);
                     alert("Upload Completed");
                   }}
                   onUploadError={() => {
                     alert("something went wrong");
                   }}
                 />
-              </div>
+              )}
             </div>
-          </div> */}
-          <div className="imagesUpload flex  gap-4">
-            <div className="main-image-upload">
-              <h3>Main Image</h3>
-
-              <UploadDropzone
-                className="ut-labe:text-md ut-allowed-content:ut-uploading:text-red-200"
-                endpoint="imageUploader"
-                onClientUploadComplete={(res) => {
-                  console.log("Files: ", res);
-                  alert("Upload Completed");
-                }}
-                onUploadError={() => {
-                  alert("something went wrong");
-                }}
-              />
-            </div>
-            <div className="back-image-upload">
+            <div className="back-image-upload  flex flex-col gap-4">
               <h3>Back Image</h3>
+              {backImage ? (
+                <Image
+                  src={backImage}
+                  alt="back image"
+                  width={300}
+                  height={300}
+                />
+              ) : (
+                <UploadDropzone
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(resBack) => {
+                    console.log("Files: ", resBack);
+                    setBackImage(resBack[0].url);
 
-              <UploadDropzone
-                endpoint="imageUploader"
-                onClientUploadComplete={(res) => {
-                  console.log("Files: ", res);
-                  alert("Upload Completed");
-                }}
-                onUploadError={() => {
-                  alert("something went wrong");
-                }}
-              />
+                    alert("Upload Completed");
+                  }}
+                  onUploadError={() => {
+                    alert("something went wrong");
+                  }}
+                />
+              )}
             </div>
           </div>
           <SubmitButton />

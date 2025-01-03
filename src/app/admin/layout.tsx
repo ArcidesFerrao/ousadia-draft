@@ -13,7 +13,9 @@ export default function AdminLayout({
       <Nav>
         <div className="flex-helper"></div>
         <div className="nav-icon-admin">
-          <NavIcon />
+          <NavLink href="/admin">
+            <NavIcon />
+          </NavLink>
         </div>
 
         <div className="admin-links flex items-center">

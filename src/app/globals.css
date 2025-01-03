@@ -461,6 +461,10 @@ table thead tr th {
   font-size: larger;
   text-transform: uppercase;
 }
+.form-product input:disabled {
+  background-color: var(--dark-grey);
+  border: 2px solid var(--foreground);
+}
 
 .form-product input[type="submit"]:hover {
   color: var(--light-grey);
@@ -470,5 +474,6 @@ table thead tr th {
   color: var(--foreground);
 }
 
-.backImage {
+.imagesUpload img {
+  border-radius: 1rem;
 }
