@@ -142,7 +142,7 @@ export default function ProductForm() {
               </div>
             </div>
           </div>
-          <div className="images-section">
+          {/* <div className="images-section">
             <div className="image flex justify-between">
               <div className="sideImage flex flex-col gap-2">
                 <h3>Main Image</h3>
@@ -176,30 +176,52 @@ export default function ProductForm() {
                   accept="image/jpeg"
                 />
               </div>
-              <div className="sideImage flex flex-col gap-2">
+              <div className="backImage flex flex-col gap-2">
                 <h3>Back Image</h3>
 
-                <label htmlFor="backImage">+</label>
-                <input
-                  type="file"
-                  id="backImage"
-                  name="backImage"
-                  accept="image/jpeg"
+                <UploadDropzone
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    console.log("Files: ", res);
+                    alert("Upload Completed");
+                  }}
+                  onUploadError={() => {
+                    alert("something went wrong");
+                  }}
                 />
               </div>
             </div>
-          </div>
-          <div className="imagesUpload">
-            <UploadDropzone
-              endpoint="imageUploader"
-              onClientUploadComplete={(res) => {
-                console.log("Files: ", res);
-                alert("Upload Completed");
-              }}
-              onUploadError={() => {
-                alert("something went wrong");
-              }}
-            />
+          </div> */}
+          <div className="imagesUpload flex  gap-4">
+            <div className="main-image-upload">
+              <h3>Main Image</h3>
+
+              <UploadDropzone
+                className="ut-labe:text-md ut-allowed-content:ut-uploading:text-red-200"
+                endpoint="imageUploader"
+                onClientUploadComplete={(res) => {
+                  console.log("Files: ", res);
+                  alert("Upload Completed");
+                }}
+                onUploadError={() => {
+                  alert("something went wrong");
+                }}
+              />
+            </div>
+            <div className="back-image-upload">
+              <h3>Back Image</h3>
+
+              <UploadDropzone
+                endpoint="imageUploader"
+                onClientUploadComplete={(res) => {
+                  console.log("Files: ", res);
+                  alert("Upload Completed");
+                }}
+                onUploadError={() => {
+                  alert("something went wrong");
+                }}
+              />
+            </div>
           </div>
           <SubmitButton />
         </form>

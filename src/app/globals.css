@@ -449,7 +449,8 @@ table thead tr th {
   width: 1rem;
 }
 
-.sideImage h3 {
+.sideImage h3,
+.backImage h3 {
   font-size: 14px;
   font-weight: 400;
 }
@@ -467,4 +468,7 @@ table thead tr th {
 
 .submit-button:disabled {
   color: var(--foreground);
+}
+
+.backImage {
 }
