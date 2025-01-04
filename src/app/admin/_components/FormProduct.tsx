@@ -5,7 +5,7 @@ import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import React, { useActionState, useEffect, useState } from "react";
 import { useForm } from "@conform-to/react";
-import { useFormStatus } from "react-dom";
+// import { useFormStatus } from "react-dom";
 import { parseWithZod } from "@conform-to/zod";
 import { addSchema } from "@/schema/productSchema";
 
@@ -21,7 +21,7 @@ export default function ProductForm() {
   const [categoriesL, setCategoriesL] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [mainImage, setMainImage] = useState<string>();
-  const [backImage, setBackImage] = useState<string>();
+  // const [backImage, setBackImage] = useState<string>();
 
   const [form, fields] = useForm({
     lastResult,
@@ -57,49 +57,13 @@ export default function ProductForm() {
     setPriceFormat(value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-
-    formData.append("name", form.value?.name || "");
-    formData.append("color", form.value?.color || "");
-    formData.append("brand", form.value?.brand || "");
-    formData.append("price", form.value?.price || "");
-    formData.append("size", form.value?.size || "");
-    formData.append("category", form.value?.category || "");
-    formData.append("stock", form.value?.stock || "");
-    formData.append("imageUrl", mainImage || "");
-
-    // const formData = {
-    //   name: form.value?.name,
-    //   color: form.value?.color,
-    //   brand: form.value?.brand,
-    //   price: form.value?.price,
-    //   size: form.value?.size,
-    //   category: form.value?.category,
-    //   stock: form.value?.stock,
-    //   imageUrl: mainImage,
-    // };
-
-    // console.log("Form Data: ", formData);
-
-    // try {
-    //   action(formData);
-    // } catch (error) {
-    //   console.error("Error: ", error);
-    // }
-
-    form.onSubmit(e);
-  };
-
   return (
     <div className="form-section flex flex-col items-center py-4 gap-4">
       <h2>Adicionar Produto</h2>
       <div className="form-product flex flex-col">
         <form
           id={form.id}
-          onSubmit={handleSubmit}
+          onSubmit={form.onSubmit}
           action={action}
           className="flex flex-col gap-6 p-4 h-fit"
         >
@@ -192,6 +156,7 @@ export default function ProductForm() {
           <div className="imagesUpload flex  gap-4">
             <div className="main-image-upload flex flex-col gap-4">
               <h3>Main Image</h3>
+              <input type="hidden" value={mainImage} name="imageUrl" />
               {mainImage ? (
                 <Image
                   src={mainImage}
@@ -216,7 +181,7 @@ export default function ProductForm() {
             </div>
             <div className="back-image-upload  flex flex-col gap-4">
               <h3>Back Image</h3>
-              {backImage ? (
+              {/* {backImage ? (
                 <Image
                   src={backImage}
                   alt="back image"
@@ -236,10 +201,10 @@ export default function ProductForm() {
                     alert("something went wrong");
                   }}
                 />
-              )}
+              )} */}
             </div>
           </div>
-          <SubmitButton />
+          <SubmitButton pending={pending} />
         </form>
         {/* {errorList && (
           <ul>
@@ -264,8 +229,8 @@ export default function ProductForm() {
   );
 }
 
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
+const SubmitButton = ({ pending }: { pending: boolean }) => {
+  // const { pending } = useFormStatus();
 
   return (
     <input

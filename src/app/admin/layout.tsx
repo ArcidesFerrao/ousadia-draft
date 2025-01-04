@@ -12,10 +12,11 @@ export default function AdminLayout({
     <>
       <Nav>
         <div className="flex-helper"></div>
-        <div className="nav-icon-admin">
-          <NavLink href="/admin">
+        <div className="nav-icon-admin flex items-center">
+          <NavLink href="/">
             <NavIcon />
           </NavLink>
+          <NavLink href="/admin">Dashboard</NavLink>
         </div>
 
         <div className="admin-links flex items-center">

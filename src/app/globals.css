@@ -460,17 +460,18 @@ table thead tr th {
   padding: 0.4rem;
   font-size: larger;
   text-transform: uppercase;
+  color: var(--light-grey);
 }
+
+.form-product input[type="submit"]:hover {
+  color: var(--admin-card-hover);
+}
+
 .form-product input:disabled {
   background-color: var(--dark-grey);
   border: 2px solid var(--foreground);
 }
-
-.form-product input[type="submit"]:hover {
-  color: var(--light-grey);
-}
-
-.submit-button:disabled {
+.submit-button {
   color: var(--foreground);
 }
 

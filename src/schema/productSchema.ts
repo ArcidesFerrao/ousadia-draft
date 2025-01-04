@@ -1,12 +1,12 @@
 import { z } from "zod"
 
-const ImageTypeEnum = z.enum(["front","back","sideL","sideR"]);
+// const ImageTypeEnum = z.enum(["front","back","sideL","sideR"]);
 
 
-const ProductImageSchema = z.object({
-    type: ImageTypeEnum,
-    url: z.string().url(),
-})
+// const ProductImageSchema = z.object({
+//     type: ImageTypeEnum,
+//     url: z.string().url(),
+// })
 
 export const addSchema = z.object({
     name: z.string().min(3),
@@ -17,6 +17,6 @@ export const addSchema = z.object({
     size: z.string().min(1),
     stock: z.coerce.number().int().min(1),
     price: z.coerce.number().int().min(1),
-    image: z.array(ProductImageSchema).optional(),
+    imageUrl: z.string(),
 })
 

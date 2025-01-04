@@ -32,7 +32,7 @@ export default async function ProdutosPage() {
         <div className="title">
           <h2>Lancamentos</h2>
         </div>
-        <div className="products-list">
+        <div className="products-list flex flex-auto">
           {productsData &&
             (await productsData).map((producto) => (
               <ProductCard

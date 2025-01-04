@@ -1,46 +1,34 @@
 "use server"
 import db from "@/db/db";
 import { addSchema } from "@/schema/productSchema";
+import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { z } from "zod";
-
-
-
-
-const fileSchema = z.instanceof(File, { message: "Required"})
-const imageSchema = fileSchema.refine( file => file.size === 0 || file.type.startsWith("image/"))
-
 
 
 export async function addProduct(prevState: unknown, formData: FormData) {
-  const result = addSchema.safeParse(Object.fromEntries(formData.entries()))
 
-  if (!result.success) {
-    return {
-        errors: result.error.flatten().fieldErrors,
-    }
-  }
+  const submission = parseWithZod(formData, { schema: addSchema });
 
-  const data = result.data;
-  console.log(data.color);
+  if(submission.status !== "success") return submission.error;
 
-  const newProduct = await db.product.create({
+  const addNewProduct = await db.product.create({
     data: {
-        name: data.name,
-        color: data.color,
-        description: data.description,
-        brand: data.brand,
-        price: data.price,
-        size: data.size,
-        category: {
-            connect: { id: data.category}
-        },
-        stock: data.stock,
+      name: submission.value.name,
+      color: submission.value.color,
+      description: submission.value.description,
+      brand: submission.value.brand,
+      price: submission.value.price,
+      size: submission.value.size,
+      category: {
+        connect: { id: submission.value.category }
+      },
+      stock: submission.value.stock,
+      imageUrl: submission.value.imageUrl,
     }
   })
-  console.log(newProduct);
 
+  console.log(addNewProduct);
 
   revalidatePath("/")
   revalidatePath("/products")
@@ -48,11 +36,7 @@ export async function addProduct(prevState: unknown, formData: FormData) {
 
 }
 
-const editSchema = addSchema.extend({
-    image: imageSchema.optional(),
-})
-
 export async function updateProduct(id: string, precState: unknown, formData: FormData) {
-    const result = editSchema.safeParse(Object.fromEntries(formData.entries()))
+    const result = addSchema.safeParse(Object.fromEntries(formData.entries()))
     console.log(result.data)
 }
