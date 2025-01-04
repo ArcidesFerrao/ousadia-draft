@@ -4,7 +4,7 @@ import db from "@/db/db";
 import { addSchema } from "@/schema/productSchema";
 import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 
 export async function addProduct(prevState: unknown, formData: FormData) {
@@ -12,9 +12,8 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   const submission = parseWithZod(formData, { schema: addSchema });
 
   if(submission.status !== "success") return submission.error;
-  try {
-
-    const addNewProduct = await db.product.create({
+ 
+  const addNewProduct = await db.product.create({
       data: {
         name: submission.value.name,
         color: submission.value.color,
@@ -34,15 +33,16 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   
   revalidatePath("/")
   revalidatePath("/products")
-  redirect("/admin/products")
-  
-  return {success: true, message: "Product added successfully!"}
-} catch (error) {
-  console.log(error)
-  return {success: false, error: "Failed to add product"}
-}
+  // redirect("/admin/products")
+  if ( submission.status === "success" ) {
 
-}
+    return {
+      status: "success",
+      message: "Post created successfully"
+    }
+  }
+  
+} 
 
 export async function updateProduct(id: string, precState: unknown, formData: FormData) {
     const result = addSchema.safeParse(Object.fromEntries(formData.entries()))

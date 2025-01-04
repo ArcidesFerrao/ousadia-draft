@@ -22,5 +22,11 @@
       "name": "Nhenhentsar",
       "price": "750,00",
       "image": "/assets/nhenhe.jpg"
+    },
+    {
+      "key": 5,
+      "name": "Nhenhentsar",
+      "price": "550,00",
+      "image": "/assets/nhenhe.jpg"
     }
   ]

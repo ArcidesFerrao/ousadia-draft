@@ -15,7 +15,7 @@ export default async function ProdutosPage() {
         <div className="title">
           <h2>Mais Vendidos</h2>
         </div>
-        <div className="products-list flex flex-auto justify-between">
+        <div className="products-list grid grid-cols-4 justify-between items-center justify-items-center">
           {dados &&
             dados.map((producto) => (
               <ProductCard
@@ -32,7 +32,8 @@ export default async function ProdutosPage() {
         <div className="title">
           <h2>Lancamentos</h2>
         </div>
-        <div className="products-list flex flex-auto justify-between">
+        {/* <div className="products-list flex flex-auto justify-between"> */}
+        <div className="products-list grid grid-cols-4 justify-between items-center justify-items-center ">
           {productsData &&
             (await productsData).map((producto) => (
               <ProductCard

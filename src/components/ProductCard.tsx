@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function ProductCard({ ...props }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <div className="product-card flex flex-col my-4 overflow-hidden">
+    <div className="product-card flex flex-col my-4 overflow-hidden w-52">
       <Link href={`/produtos/${props.id}`}>
         <div className="product-image ">
           <Image

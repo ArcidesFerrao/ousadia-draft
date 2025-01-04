@@ -8,6 +8,7 @@ import { useForm } from "@conform-to/react";
 // import { useFormStatus } from "react-dom";
 import { parseWithZod } from "@conform-to/zod";
 import { addSchema } from "@/schema/productSchema";
+import { toast } from "react-toastify";
 
 type Category = {
   id: number;
@@ -16,7 +17,7 @@ type Category = {
 };
 
 export default function ProductForm() {
-  const [lastResult, action, pending] = useActionState(addProduct, undefined);
+  const [state, action, pending] = useActionState(addProduct, undefined);
   const [priceFormat, setPriceFormat] = useState<number | null>(null);
   const [categoriesL, setCategoriesL] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -24,7 +25,6 @@ export default function ProductForm() {
   // const [backImage, setBackImage] = useState<string>();
 
   const [form, fields] = useForm({
-    lastResult,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: addSchema });
     },
@@ -51,17 +51,15 @@ export default function ProductForm() {
 
     getCategories();
 
-    if (lastResult?.success) {
-      toast.success(lastResult.message, {
+    if (state) {
+      toast.success(state.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
       });
-    } else if (lastResult?.error) {
-      toast.error(lastResult.error);
     }
-  }, [lastResult]);
+  }, [state]);
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? parseFloat(e.target.value) : null;
@@ -238,7 +236,7 @@ const SubmitButton = ({ pending }: { pending: boolean }) => {
       type="submit"
       name="submit"
       id="submit"
-      value="Add"
+      value={pending ? "Adding..." : "Add"}
       disabled={pending}
     />
   );
