@@ -50,7 +50,18 @@ export default function ProductForm() {
     };
 
     getCategories();
-  }, []);
+
+    if (lastResult?.success) {
+      toast.success(lastResult.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+      });
+    } else if (lastResult?.error) {
+      toast.error(lastResult.error);
+    }
+  }, [lastResult]);
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? parseFloat(e.target.value) : null;
@@ -206,15 +217,6 @@ export default function ProductForm() {
           </div>
           <SubmitButton pending={pending} />
         </form>
-        {/* {errorList && (
-          <ul>
-            {Object.entries(errorList).map(([key, value]) => (
-              <li className="error" key={key}>
-                {key}: {value}
-              </li>
-            ))}
-          </ul>
-        )} */}
         {fields.name.errors && (
           <p className="errorsField">{fields.name.errors}</p>
         )}
@@ -230,8 +232,6 @@ export default function ProductForm() {
 }
 
 const SubmitButton = ({ pending }: { pending: boolean }) => {
-  // const { pending } = useFormStatus();
-
   return (
     <input
       className={pending ? "sudmit-button" : ""}
