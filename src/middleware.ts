@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const underConstructionPages = ['/about', '/categorias' ]
+const underConstructionPages = ['/about' ]
 
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

@@ -3,7 +3,7 @@ import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import { NavBar } from "@/components/Nav";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+// import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Ousadia",
@@ -24,7 +24,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${ubuntu.className} antialiased`}>
         <NavBar />
-        <Breadcrumbs withHome>{children}</Breadcrumbs>
+        {/* <Breadcrumbs withHome> */}
+        {children}
+        {/* </Breadcrumbs> */}
         <Footer />
       </body>
     </html>

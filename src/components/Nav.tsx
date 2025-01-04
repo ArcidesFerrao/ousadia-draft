@@ -39,7 +39,7 @@ export const NavBar = () => {
           </div>
           <div className="categorias">
             <NavLink href="/categorias">Categorias</NavLink>
-            <div className="menu-categorias flex gap-4">
+            {/* <div className="menu-categorias flex gap-4">
               <div className="camisetes flex flex-col gap-4">
                 <NavLink href="/categorias">Maningue Cenas</NavLink>
                 <NavLink href="/categorias">Nhenhentsar</NavLink>
@@ -47,7 +47,7 @@ export const NavBar = () => {
               <div className="bones">
                 <NavLink href="/categorias">Love</NavLink>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="nav-about">
             <NavLink href="/about">Sobre Ousadia</NavLink>
@@ -59,7 +59,7 @@ export const NavBar = () => {
         <div className="nav-icon">
           <NavIcon />
         </div>
-        <div className="nav-account">Account/Cart</div>
+        <div className="nav-account">Sign-in</div>
       </Nav>
     )
   );
