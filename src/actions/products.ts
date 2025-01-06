@@ -65,7 +65,7 @@ export async function deleteProduct(id: string) {
 }
 
 
-export async function buyProduct(id: string) {
+export async function buyProduct(id: string, value: number) {
   const producto = await db.product.findUnique({
     where: { id },
     select: {
@@ -80,8 +80,8 @@ export async function buyProduct(id: string) {
     data: {
       productId: id,
       price: producto?.price,
-      quantity: 2,
-      totalPrice: producto.price * 2,
+      quantity: value,
+      totalPrice: producto.price * value,
 
     }
   })
@@ -89,7 +89,7 @@ export async function buyProduct(id: string) {
   const buying = await db.product.update({
     where: { id },
     data: {
-      stock: producto?.stock - 1
+      stock: producto?.stock - value
     }
   })
 

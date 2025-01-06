@@ -4,13 +4,19 @@ import { buyProduct } from "@/actions/products";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-const OptionButton = ({ productId }: { productId: string }) => {
+const OptionButton = ({
+  productId,
+  value,
+}: {
+  productId: string;
+  value: number;
+}) => {
   const [visa, setVisa] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   const handleBuy = () => {
     if (phoneNumber === "841234567") {
-      buyProduct(productId);
+      buyProduct(productId, value);
       toast.success("Success");
     } else {
       toast.error("Error");
@@ -81,10 +87,24 @@ const OptionButton = ({ productId }: { productId: string }) => {
 
 export default function BuyButton({ productId }: { productId: string }) {
   const [showOption, setShowOption] = useState(false);
+  const [quantityValue, setQuantityValue] = useState<number>(1);
   return (
     <div className="w-full flex flex-col gap-4">
+      <div className="quantity-buy flex justify-between py-2">
+        <label htmlFor="quantity">Quantidade:</label>
+        <input
+          className="w-10 px-1"
+          type="number"
+          value={quantityValue}
+          onChange={(e) => {
+            const value = parseInt(e.target.value);
+            setQuantityValue(value);
+          }}
+        />
+      </div>
+
       {showOption ? (
-        <OptionButton productId={productId} />
+        <OptionButton productId={productId} value={quantityValue} />
       ) : (
         <button
           onClick={(e) => {

@@ -25,6 +25,7 @@ const OrdersTable = async () => {
       quantity: true,
       totalPrice: true,
     },
+    orderBy: { createdAt: "desc" },
   });
 
   if (orders.length === 0) {
