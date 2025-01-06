@@ -68,7 +68,7 @@ const ProductsTable = async () => {
             </td>
           </tr>
         ))}
-        <tr>
+        {/* <tr>
           <td>Maningue Cenas</td>
           <td>Preta</td>
           <td>M</td>
@@ -76,7 +76,7 @@ const ProductsTable = async () => {
           <td>900.00</td>
           <td>/</td>
           <td>-</td>
-        </tr>
+        </tr> */}
       </tbody>
     </table>
   );

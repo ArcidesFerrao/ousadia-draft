@@ -5,7 +5,7 @@
 :root {
   --background: #f4f5fa;
   --foreground: #171717;
-  --dark-grey: #323232;
+  --dark-grey: #333333;
   --light-grey: #bfbfbf;
   --green-color: #4dd645;
   --input-color: #bfbfbf;
@@ -135,9 +135,13 @@ ol li a:hover {
 table {
   background-color: var(--admin-card-hover);
   border-radius: 8px;
+  padding: 1rem 0;
 }
 
-tr th,
+tr th {
+  padding: 1rem;
+}
+
 tr td {
   padding: 0.4rem 1rem;
 }
@@ -286,6 +290,7 @@ table thead tr th {
 }
 
 .admin-products,
+.admin-reports,
 .admin-orders,
 .admin-main {
   align-items: center;
@@ -492,4 +497,12 @@ table thead tr th {
   position: absolute I !important ;
   width: 1px I !important;
   white-space: nowrap !important ;
+}
+
+.report-chart {
+  background-color: var(--admin-card-hover);
+}
+
+.order-status:hover {
+  color: var(--light-grey);
 }

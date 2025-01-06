@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { deleteProduct } from "@/actions/products";
 import { useEffect, useState, useTransition } from "react";
+import { NavLink } from "@/components/Nav";
 
 export const DeleteDropdownItem = ({ id }: { id: string }) => {
   const [isPending, startTransition] = useTransition();
@@ -46,4 +47,14 @@ export const Active = ({ stock }: { stock: number }) => {
       )}
     </>
   );
+};
+
+export const UpdateStatus = ({
+  status,
+  id,
+}: {
+  status: string;
+  id: string;
+}) => {
+  return <NavLink href={`/admin/orders/${id}`}>{status}</NavLink>;
 };

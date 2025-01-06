@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ReactNode } from "react";
 
 type DashboardCardProps = {
@@ -19,7 +20,11 @@ export default function DashboardCard({
         <h3>{title}</h3>
       </div>
       <div className="card-content">
-        <img src={iconUrl} alt="icon" width={40} height={40} />
+        {iconUrl ? (
+          <Image src={iconUrl} alt="icon" width={40} height={40} />
+        ) : (
+          <p>icon</p>
+        )}
       </div>
     </section>
   );
@@ -55,5 +60,18 @@ export const DashBoardOverview = ({ children }: { children: ReactNode }) => {
     <div className="dashboard flex justify-around w-full max-w-fit gap-5">
       {children}
     </div>
+  );
+};
+
+export const ReportCard = ({ title, subtitle }: DashboardCardProps) => {
+  return (
+    <section className="dash-card p-4 flex flex-col gap-4 items-center justify-center rounded-lg w-48 h-24">
+      <div className="flex w-full">
+        <h2>{subtitle}</h2>
+      </div>
+      <div className="card-content flex self-start">
+        <h3>{title}</h3>
+      </div>
+    </section>
   );
 };

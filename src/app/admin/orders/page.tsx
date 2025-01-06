@@ -1,5 +1,6 @@
 import db from "@/db/db";
 import React from "react";
+import { UpdateStatus } from "../_components/DropdownMenu";
 
 export default function OrdersPage() {
   return (
@@ -24,6 +25,7 @@ const OrdersTable = async () => {
       price: true,
       quantity: true,
       totalPrice: true,
+      status: true,
     },
     orderBy: { createdAt: "desc" },
   });
@@ -41,9 +43,7 @@ const OrdersTable = async () => {
           <th>Quantidade</th>
           <th>Preco (MZN)</th>
           <th>Total</th>
-          <th>
-            <span className="sr-only">Status</span>
-          </th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -53,16 +53,18 @@ const OrdersTable = async () => {
             <td>{order.quantity}</td>
             <td>{order.price}.00</td>
             <td>{order.totalPrice}</td>
-            <td>{/* <Active stock={product.stock} /> */}</td>
+            <td>
+              <UpdateStatus status={order.status} id={order.id.toString()} />
+            </td>
           </tr>
         ))}
-        <tr>
+        {/* <tr>
           <td>Maningue Cenas</td>
           <td>3</td>
           <td>900.00</td>
           <td>2700.00</td>
           <td>/</td>
-        </tr>
+        </tr> */}
       </tbody>
     </table>
   );
