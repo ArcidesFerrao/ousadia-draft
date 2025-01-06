@@ -16,7 +16,7 @@ type Category = {
 };
 
 export default function ProductForm() {
-  const [lastResult, action, pending] = useActionState(addProduct, undefined);
+  const [state, action, pending] = useActionState(addProduct, undefined);
   const [priceFormat, setPriceFormat] = useState<number | null>(null);
   const [categoriesL, setCategoriesL] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -24,7 +24,6 @@ export default function ProductForm() {
   const [backImage, setBackImage] = useState<string>();
 
   const [form, fields] = useForm({
-    lastResult,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: addSchema });
     },
@@ -62,14 +61,14 @@ export default function ProductForm() {
 
     const formData = new FormData();
 
-    formData.append("name", form.value?.name || "");
-    formData.append("color", form.value?.color || "");
-    formData.append("brand", form.value?.brand || "");
-    formData.append("price", form.value?.price || "");
-    formData.append("size", form.value?.size || "");
-    formData.append("category", form.value?.category || "");
-    formData.append("stock", form.value?.stock || "");
-    formData.append("imageUrl", mainImage || "");
+    // formData.append("name", form.value?.name || "");
+    // formData.append("color", form.value?.color || "");
+    // formData.append("brand", form.value?.brand || "");
+    // formData.append("price", form.value?.price || "");
+    // formData.append("size", form.value?.size || "");
+    // formData.append("category", form.value?.category || "");
+    // formData.append("stock", form.value?.stock || "");
+    // formData.append("imageUrl", mainImage || "");
 
     // const formData = {
     //   name: form.value?.name,
@@ -82,7 +81,7 @@ export default function ProductForm() {
     //   imageUrl: mainImage,
     // };
 
-    // console.log("Form Data: ", formData);
+    console.log("Form Data: ", formData);
 
     // try {
     //   action(formData);
@@ -259,6 +258,7 @@ export default function ProductForm() {
         {fields.stock.errors && (
           <p className="errorsField">{fields.stock.errors}</p>
         )}
+        {state?.message}
       </div>
     </div>
   );

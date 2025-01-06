@@ -21,13 +21,13 @@ async function getOrdersData() {
   };
 }
 
-async function getUsersData() {
-  const userCount = await db.user.aggregate({
-    _count: true,
-  });
+// async function getUsersData() {
+//   const userCount = await db.user.aggregate({
+//     _count: true,
+//   });
 
-  return userCount;
-}
+//   return userCount;
+// }
 
 async function getProductsData() {
   const productsCount = await db.product.count();
@@ -36,9 +36,9 @@ async function getProductsData() {
 }
 
 export default async function AdminPage() {
-  const [ordersData, usersData, productsData] = await Promise.all([
+  const [ordersData, productsData] = await Promise.all([
     getOrdersData(),
-    getUsersData(),
+    // getUsersData(),
     getProductsData(),
   ]);
   const dados = [
