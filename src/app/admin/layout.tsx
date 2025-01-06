@@ -21,6 +21,7 @@ export default function AdminLayout({
 
         <div className="admin-links flex items-center">
           <NavLink href="/admin/products">Produtos</NavLink>
+          <NavLink href="/admin/orders">Pedidos</NavLink>
           <NavLink href="/admin/sales">Relatorios</NavLink>
         </div>
       </Nav>

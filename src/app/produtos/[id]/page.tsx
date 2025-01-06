@@ -57,7 +57,7 @@ export default async function ProductoPage({
               <h4>{produtoId.size}</h4>
             </div>
             <div className="buy-button flex items-center justify-center rounded-lg overflow-hidden">
-              <BuyButton />
+              <BuyButton productId={produtoId.id} />
             </div>
           </div>
         </div>

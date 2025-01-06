@@ -188,7 +188,7 @@ table thead tr th {
 
 .nav-icon-admin {
   position: absolute;
-  top: -4px;
+  top: -35px;
 }
 
 .nav-icon {
@@ -285,6 +285,7 @@ table thead tr th {
 }
 
 .admin-products,
+.admin-orders,
 .admin-main {
   align-items: center;
   background-color: var(--foreground);

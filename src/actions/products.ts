@@ -18,14 +18,14 @@ export async function addProduct(prevState: unknown, formData: FormData) {
         name: submission.value.name,
         color: submission.value.color,
         description: submission.value.description,
-      brand: submission.value.brand,
-      price: submission.value.price,
-      size: submission.value.size,
-      category: {
-        connect: { id: submission.value.category }
-      },
-      stock: submission.value.stock,
-      imageUrl: submission.value.imageUrl,
+        brand: submission.value.brand,
+        price: submission.value.price,
+        size: submission.value.size,
+        category: {
+          connect: { id: submission.value.category }
+        },
+        stock: submission.value.stock,
+        imageUrl: submission.value.imageUrl,
     }
   })
   
@@ -64,3 +64,37 @@ export async function deleteProduct(id: string) {
 
 }
 
+
+export async function buyProduct(id: string) {
+  const producto = await db.product.findUnique({
+    where: { id },
+    select: {
+      price: true,
+      stock: true,
+    }
+  })
+
+  if (!producto) return "product not found";
+
+  const pedido = await db.order.create({
+    data: {
+      productId: id,
+      price: producto?.price,
+      quantity: 2,
+      totalPrice: producto.price * 2,
+
+    }
+  })
+
+  const buying = await db.product.update({
+    where: { id },
+    data: {
+      stock: producto?.stock - 1
+    }
+  })
+
+  console.log(pedido, buying)
+  revalidatePath("/")
+  revalidatePath("/products")
+  revalidatePath("/admin/products")
+}

@@ -6,7 +6,7 @@ export default function ProductsAdminPage() {
   return (
     <main className="admin-products text-zinc-300">
       <div className="products-header p-4 flex items-center justify-between w-full max-w-2xl">
-        <h2>Lista de productos</h2>
+        <h2>Lista de Productos</h2>
         <AddButton href="/admin/products/new" />
       </div>
 
@@ -25,6 +25,9 @@ const ProductsTable = async () => {
       color: true,
       size: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   if (products.length === 0) {
@@ -36,7 +39,7 @@ const ProductsTable = async () => {
     <table className=" max-w-3xl w-full">
       <thead>
         <tr>
-          <th>Producto</th>
+          <th>Productos ({products.length})</th>
           <th>Cor</th>
           <th>Tamanho</th>
           <th>Quantidade</th>

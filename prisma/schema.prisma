@@ -31,38 +31,28 @@ model Product {
   brand       String
   price       Float
   stock       Int            @default(0)
-  imageUrl    String? // main image for quick display
+  imageUrl    String // main image for quick display
   category    Category?      @relation(fields: [categoryId], references: [id])
   categoryId  Int?
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
   images      ProductImage[] // Relationship with ProductImage
-  orderItems  OrderItem[]
+  Order       Order[]
 }
 
 model Order {
-  id         Int         @id @default(autoincrement())
-  user       User        @relation(fields: [userId], references: [id])
-  userId     String
+  id         Int      @id @default(autoincrement())
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  String
+  price      Float // Product price at the time of purchase
+  quantity   Int // Quantity of this product in the order
+  discount   Float? // Discount applied to this product (optional)
   totalPrice Float
-  status     String      @default("pending") // pending, shipped, delivered, canceled
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  orderItems OrderItem[]
-}
-
-model OrderItem {
-  id        Int      @id @default(autoincrement())
-  order     Order    @relation(fields: [orderId], references: [id])
-  orderId   Int
-  product   Product  @relation(fields: [productId], references: [id])
-  productId String
-  quantity  Int // Quantity of this product in the order
-  price     Float // Product price at the time of purchase
-  discount  Float? // Discount applied to this product (optional)
-  total     Float // Total = (price * quantity) - discount
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  status     String   @default("pending") // pending, shipped, delivered, canceled
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Category {

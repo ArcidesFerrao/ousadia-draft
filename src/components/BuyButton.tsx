@@ -1,13 +1,19 @@
 "use client";
 
+import { buyProduct } from "@/actions/products";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
-const OptionButton = () => {
+const OptionButton = ({ productId }: { productId: string }) => {
   const [visa, setVisa] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
 
-  const handleBuy = (phoneNumber) => {
+  const handleBuy = () => {
     if (phoneNumber === "841234567") {
+      buyProduct(productId);
+      toast.success("Success");
+    } else {
+      toast.error("Error");
     }
   };
 
@@ -63,7 +69,7 @@ const OptionButton = () => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          handleBuy(phoneNumber);
+          handleBuy();
         }}
         className="button-quero p-4 rounded-lg"
       >
@@ -73,12 +79,12 @@ const OptionButton = () => {
   );
 };
 
-export default function BuyButton() {
+export default function BuyButton({ productId }: { productId: string }) {
   const [showOption, setShowOption] = useState(false);
   return (
     <div className="w-full flex flex-col gap-4">
       {showOption ? (
-        <OptionButton />
+        <OptionButton productId={productId} />
       ) : (
         <button
           onClick={(e) => {
