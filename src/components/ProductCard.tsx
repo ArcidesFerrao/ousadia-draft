@@ -57,7 +57,7 @@ export const DashProductCard = ({ ...props }) => {
           </div>
         </div>
         <div className="detail-footer flex gap-2">
-          <h3>12</h3>
+          <h3>{props.quantity}</h3>
           <p>Pedidos</p>
         </div>
       </div>

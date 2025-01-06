@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { ReactNode } from "react";
+import { NavLink } from "./Nav";
 
 type DashboardCardProps = {
   title: string;
   subtitle: string;
+  pageUrl?: string;
   iconUrl?: string;
   totalVendas?: boolean;
 };
@@ -12,12 +14,13 @@ export default function DashboardCard({
   title,
   subtitle,
   iconUrl,
+  pageUrl,
 }: DashboardCardProps) {
   return (
     <section className="dash-card border-2 p-4 flex gap-4 items-center justify-between  rounded-lg w-48 h-24">
       <div className="card-header flex flex-col  gap-4 ">
         <h2>{subtitle}</h2>
-        <h3>{title}</h3>
+        <h3>{pageUrl ? <NavLink href={pageUrl}>{title}</NavLink> : title}</h3>
       </div>
       <div className="card-content">
         {iconUrl ? (
@@ -30,15 +33,19 @@ export default function DashboardCard({
   );
 }
 
-export const DashboardCardTotal = ({ title, subtitle }: DashboardCardProps) => {
+export const DashboardCardTotal = ({
+  title,
+  subtitle,
+  pageUrl,
+}: DashboardCardProps) => {
   return (
     <section className="dash-card p-4 flex flex-col gap-4 items-center justify-center rounded-lg w-48 h-24">
       <div className="flex justify-between w-full">
-        <h2>{subtitle}</h2>
         <p>MZN</p>
+        <h2>{subtitle}</h2>
       </div>
       <div className="card-content flex self-start">
-        <h3>{title}</h3>
+        <h3>{pageUrl ? <NavLink href={pageUrl}>{title}</NavLink> : title}</h3>
       </div>
     </section>
   );

@@ -35,32 +35,65 @@ async function getProductsData() {
   return productsCount;
 }
 
+async function getMostSales() {
+  const mostSales = await db.order.groupBy({
+    by: ["productId"],
+    _sum: {
+      quantity: true,
+    },
+    orderBy: {
+      _sum: {
+        quantity: "desc",
+      },
+    },
+    take: 3,
+  });
+
+  const resultData = await Promise.all(
+    mostSales.map(async (entry) => {
+      const product = await db.product.findUnique({
+        where: { id: entry.productId },
+      });
+      return {
+        name: product?.name,
+        quantity: entry._sum.quantity,
+        imageUrl: product?.imageUrl,
+        price: product?.price,
+      };
+    })
+  );
+
+  return resultData;
+}
+
 export default async function AdminPage() {
-  const [ordersData, productsData] = await Promise.all([
+  const [ordersData, productsData, salesData] = await Promise.all([
     getOrdersData(),
     // getUsersData(),
     getProductsData(),
+    getMostSales(),
   ]);
-  const dados = [
-    {
-      id: 1,
-      name: "Maningue Cenas",
-      price: "900,00",
-      image: "/assets/mng.jpg",
-    },
-    {
-      id: 2,
-      name: "Love",
-      price: "800,00",
-      image: "/assets/lv.jpg",
-    },
-    {
-      id: 3,
-      name: "Nhenhentsar",
-      price: "750,00",
-      image: "/assets/nhenhe.jpg",
-    },
-  ];
+
+  // const dados = [
+  //   {
+  //     id: 1,
+  //     name: "Maningue Cenas",
+  //     price: "900,00",
+  //     image: "/assets/mng.jpg",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Love",
+  //     price: "800,00",
+  //     image: "/assets/lv.jpg",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Nhenhentsar",
+  //     price: "750,00",
+  //     image: "/assets/nhenhe.jpg",
+  //   },
+  // ];
 
   return (
     <main className="admin-main ">
@@ -71,29 +104,32 @@ export default async function AdminPage() {
         <DashboardCardTotal
           title="Total de Vendas"
           subtitle={`${ordersData.amount}.00`}
+          pageUrl="/admin/reports"
         />
         <DashboardCard
           title="Produtos"
           subtitle={`${productsData}`}
           iconUrl={cart.src}
+          pageUrl="/admin/products"
         />
         <DashboardCard
           title="Pedidos"
           subtitle={`${ordersData.numberOfOrders}`}
           iconUrl={bag.src}
+          pageUrl="/admin/orders"
         />
         <DashboardCard title="Clientes" subtitle="12" iconUrl={chart.src} />
       </DashBoardOverview>
       <DashboardCardMost>
-        {dados &&
-          dados.map((produto) => (
-            <DashProductCard
-              key={produto.id}
-              name={produto.name}
-              price={produto.price}
-              imageUrl={produto.image}
-            />
-          ))}
+        {salesData.map((produto, index) => (
+          <DashProductCard
+            key={index}
+            name={produto.name}
+            price={produto.price}
+            imageUrl={produto.imageUrl}
+            quantity={produto.quantity}
+          />
+        ))}
       </DashboardCardMost>
     </main>
   );
