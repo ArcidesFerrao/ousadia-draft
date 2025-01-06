@@ -53,7 +53,7 @@ export const DashboardCardTotal = ({
 
 export const DashboardCardMost = ({ children }: { children: ReactNode }) => {
   return (
-    <section className="dash-card-most flex flex-col w-full max-w-fit rounded-lg p-4 gap-4 ">
+    <section className="dash-card-most flex flex-col w-full max-w-fit rounded-lg py-6 px-8 gap-4 ">
       <div className="admin-section-header">
         <h2>Mais vendidos...</h2>
       </div>
