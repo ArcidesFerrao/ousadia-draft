@@ -24,7 +24,7 @@ const OptionButton = ({
   };
 
   return (
-    <div className="payment flex flex-col gap-4 p-4">
+    <div className="payment  rounded-lg flex flex-col gap-4 p-4">
       <div className="options flex justify-between">
         <h4>Pagar via: </h4>
         <div className="choose flex border rounded-sm">
@@ -89,11 +89,11 @@ export default function BuyButton({ productId }: { productId: string }) {
   const [showOption, setShowOption] = useState(false);
   const [quantityValue, setQuantityValue] = useState<number>(1);
   return (
-    <div className="w-full flex flex-col gap-4">
-      <div className="quantity-buy flex justify-between py-2">
+    <div className="w-full flex flex-col gap-4 ">
+      <div className="quantity-buy flex justify-between ">
         <label htmlFor="quantity">Quantidade:</label>
         <input
-          className="w-10 px-1"
+          className="w-10 px-1 "
           type="number"
           value={quantityValue}
           onChange={(e) => {

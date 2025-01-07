@@ -506,3 +506,7 @@ table thead tr th {
 .order-status:hover {
   color: var(--light-grey);
 }
+
+.quantity-buy input {
+  border: var(--input-color) 1px solid;
+}

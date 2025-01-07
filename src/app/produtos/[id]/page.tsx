@@ -29,7 +29,7 @@ export default async function ProductoPage({
 
   return (
     <main className="py-8">
-      <div className="product-container flex justify-center gap-8 w-full">
+      <div className="product-container flex justify-around w-full">
         <div className="product-image rounded-lg overflow-hidden w-fit ">
           <Image
             src={produtoId.imageUrl || ""}
@@ -39,8 +39,8 @@ export default async function ProductoPage({
           />
         </div>
         <div className="product-details flex flex-col justify-between ">
-          <div className="product-header flex flex-col justify-between items-center gap-4 px-8">
-            <div className="product-name">
+          <div className="product-header flex flex-col justify-between items-center gap-4 px-8 min-w-64">
+            <div className="product-name max-w-64">
               <h2>{produtoId?.name}</h2>
             </div>
             <div className="product-price  flex   h-full">
@@ -56,7 +56,7 @@ export default async function ProductoPage({
               <h4>Tamanho:</h4>
               <h4>{produtoId.size}</h4>
             </div>
-            <div className="buy-button flex items-center justify-center rounded-lg overflow-hidden">
+            <div className="buy-button flex items-center justify-center overflow-hidden">
               <BuyButton productId={produtoId.id} />
             </div>
           </div>
