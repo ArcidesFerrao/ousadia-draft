@@ -15,6 +15,9 @@ export default async function ProductoPage({
     where: {
       id,
     },
+    include: {
+      ProductSize: true,
+    },
   });
 
   // const produto = dados.find((item) => item.key.toString() === id);
@@ -54,10 +57,23 @@ export default async function ProductoPage({
             </div>
             <div className="info-size flex justify-between">
               <h4>Tamanho:</h4>
-              <h4>{produtoId.size}</h4>
+
+              <div className="product-sizes flex gap-4">
+                {produtoId.ProductSize.filter((size) => size.stock > 1).map(
+                  (size) => (
+                    <div key={size.id} className="product-size flex gap-2">
+                      <label className="radio">
+                        <input type="radio" name="size" id="S" value="s" />
+                        <span className="radio-option">{size.size}</span>
+                      </label>
+                    </div>
+                  )
+                )}
+              </div>
             </div>
+
             <div className="buy-button flex items-center justify-center overflow-hidden">
-              <BuyButton productId={produtoId.id} />
+              <BuyButton productId={produtoId.id} price={produtoId.price} />
             </div>
           </div>
         </div>

@@ -1,15 +1,18 @@
 "use client";
 
 import { buyProduct } from "@/actions/products";
-import React, { useState } from "react";
+import Image from "next/image";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
 
 const OptionButton = ({
   productId,
   value,
+  setShowOption,
 }: {
   productId: string;
   value: number;
+  setShowOption: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [visa, setVisa] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -46,6 +49,20 @@ const OptionButton = ({
             visa
           </button>
         </div>
+        <button
+          className="close-options"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowOption(false);
+          }}
+        >
+          <Image
+            src="/assets/jam-close.png"
+            width={32}
+            height={32}
+            alt="close"
+          />
+        </button>
       </div>
       {!visa ? (
         <div className="payment-details flex flex-col rounded-lg p-4 gap-4">
@@ -85,8 +102,14 @@ const OptionButton = ({
   );
 };
 
-export default function BuyButton({ productId }: { productId: string }) {
-  const [showOption, setShowOption] = useState(false);
+export default function BuyButton({
+  productId,
+  price,
+}: {
+  productId: string;
+  price: number;
+}) {
+  const [showOption, setShowOption] = useState<boolean>(false);
   const [quantityValue, setQuantityValue] = useState<number>(1);
   return (
     <div className="w-full flex flex-col gap-4 ">
@@ -104,17 +127,29 @@ export default function BuyButton({ productId }: { productId: string }) {
       </div>
 
       {showOption ? (
-        <OptionButton productId={productId} value={quantityValue} />
+        <OptionButton
+          productId={productId}
+          value={quantityValue}
+          setShowOption={setShowOption}
+        />
       ) : (
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            setShowOption(!showOption);
-          }}
-          className="button-quero p-4 rounded-lg"
-        >
-          Eu Quero
-        </button>
+        <div className="">
+          {quantityValue > 1 && (
+            <div className="total-price flex justify-between">
+              <h4>Total a pagar:</h4>
+              <h5>{price * quantityValue}.00 MZN</h5>
+            </div>
+          )}
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setShowOption(!showOption);
+            }}
+            className="button-quero p-4 rounded-lg"
+          >
+            Eu Quero
+          </button>
+        </div>
       )}
     </div>
   );

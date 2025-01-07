@@ -137,24 +137,19 @@ export default function ProductForm() {
                 <h3>Tamanho:</h3>
                 <div className="radio-sizes flex gap-2">
                   <label className="radio">
-                    <input type="radio" name="size" id="S" value="small" />
+                    <input type="radio" name="size" id="S" value="s" />
                     <span className="radio-option">S</span>
                   </label>
                   <label className="radio">
-                    <input type="radio" name="size" id="M" value="medium" />
+                    <input type="radio" name="size" id="M" value="m" />
                     <span className="radio-option">M</span>
                   </label>
                   <label className="radio">
-                    <input type="radio" name="size" id="L" value="large" />
+                    <input type="radio" name="size" id="L" value="l" />
                     <span className="radio-option">L</span>
                   </label>
                   <label className="radio">
-                    <input
-                      type="radio"
-                      name="size"
-                      id="XL"
-                      value="extra-large"
-                    />
+                    <input type="radio" name="size" id="XL" value="xl" />
                     <span className="radio-option">XL</span>
                   </label>
                 </div>

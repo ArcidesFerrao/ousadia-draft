@@ -21,9 +21,14 @@ const ProductsTable = async () => {
       id: true,
       name: true,
       price: true,
-      stock: true,
+      // stock: true,
       color: true,
-      size: true,
+      ProductSize: {
+        select: {
+          size: true,
+          stock: true,
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
@@ -57,14 +62,25 @@ const ProductsTable = async () => {
           <tr key={product.id}>
             <td>{product.name}</td>
             <td>{product.color}</td>
-            <td>{product.size}</td>
-            <td>{product.stock}</td>
+            <td>
+              {product.ProductSize.map((size, index) => (
+                <p key={index}>
+                  {size.size}: {size.stock}
+                </p>
+              ))}{" "}
+            </td>
+            <td>
+              {product.ProductSize.reduce(
+                (total, size) => total + size.stock,
+                0
+              )}
+            </td>
             <td>{product.price}.00</td>
             <td>
               <DeleteDropdownItem id={product.id} />
             </td>
             <td>
-              <Active stock={product.stock} />
+              <Active stock={5} />
             </td>
           </tr>
         ))}

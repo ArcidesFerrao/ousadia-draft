@@ -20,11 +20,15 @@ export async function addProduct(prevState: unknown, formData: FormData) {
         description: submission.value.description,
         brand: submission.value.brand,
         price: submission.value.price,
-        size: submission.value.size,
+        ProductSize: {
+          create: {
+            size: submission.value.size,
+            stock: submission.value.stock,
+          }
+        },
         category: {
           connect: { id: submission.value.category }
         },
-        stock: submission.value.stock,
         imageUrl: submission.value.imageUrl,
     }
   })
@@ -70,7 +74,13 @@ export async function buyProduct(id: string, value: number) {
     where: { id },
     select: {
       price: true,
-      stock: true,
+      ProductSize: {
+        select: {
+          size: true,
+          stock: true,
+        }
+      }
+      // stock: true,
     }
   })
 
@@ -89,7 +99,19 @@ export async function buyProduct(id: string, value: number) {
   const buying = await db.product.update({
     where: { id },
     data: {
-      stock: producto?.stock - value
+      ProductSize: {
+        update: {
+          where: {
+            id: "1",
+          },
+          data: {
+            stock: {
+              decrement: value,
+            }
+          }
+        }
+        
+      }
     }
   })
 

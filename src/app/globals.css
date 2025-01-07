@@ -383,32 +383,35 @@ table thead tr th {
   color: var(--background);
   border-radius: 0;
 }
+.radio-sizes {
+  .radio input[type="radio"] {
+    display: none;
+  }
 
-.radio input[type="radio"] {
-  display: none;
+  .radio .radio-option {
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    font-size: small;
+    font-weight: 300;
+    border: 1px solid var(--foreground);
+    background-color: var(--foreground);
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  .radio .radio-option:hover {
+    border: 1px solid var(--input-color);
+  }
+
+  .radio input[type="radio"]:checked + .radio-option {
+    color: var(--foreground);
+    background-color: var(--light-grey);
+    border: 1px solid var(--input-color);
+  }
+  .radio .radio-option {
+    padding: 0.4rem 0.5rem;
+  }
 }
-
-.radio .radio-option {
-  cursor: pointer;
-  padding: 0.4rem 1rem;
-  font-size: small;
-  font-weight: 300;
-  border: 1px solid var(--foreground);
-  background-color: var(--foreground);
-  border-radius: 4px;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.radio .radio-option:hover {
-  border: 1px solid var(--input-color);
-}
-
-.radio input[type="radio"]:checked + .radio-option {
-  color: var(--foreground);
-  background-color: var(--light-grey);
-  border: 1px solid var(--input-color);
-}
-
 .form-product input[type="number"] {
   width: 60px;
   color: var(--dark-grey);
@@ -429,11 +432,7 @@ table thead tr th {
   padding: 2rem;
 }
 
-.radio .radio-option {
-  padding: 0.4rem 0.5rem;
-}
-
-.sideImage label:hover {
+.radio-sizes label:hover {
   background-color: var(--admin-card-hover);
 }
 .sideImage label {
@@ -509,4 +508,43 @@ table thead tr th {
 
 .quantity-buy input {
   border: var(--input-color) 1px solid;
+}
+
+.product-size label {
+  color: var(--light-grey);
+  /* background-color: var(--dark-grey); */
+}
+
+.product-size {
+  .radio input[type="radio"] {
+    display: none;
+  }
+
+  .radio .radio-option {
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    font-size: small;
+    font-weight: 300;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+    color: var(--foreground);
+    background-color: var(--light-grey);
+    border: 1px solid var(--input-color);
+  }
+
+  .radio .radio-option:hover {
+    border: 1px solid var(--input-color);
+  }
+
+  .radio input[type="radio"]:checked + .radio-option {
+    font-weight: 500;
+    border: 1px solid var(--foreground);
+    background-color: var(--input-color);
+  }
+}
+
+.close-options {
+  overflow: hidden;
+  width: fit-content;
+  border: ipx solid var(--dark-grey);
 }
