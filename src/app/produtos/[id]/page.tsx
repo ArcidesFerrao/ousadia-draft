@@ -55,25 +55,35 @@ export default async function ProductoPage({
               <h4>Cor:</h4>
               <h4>{produtoId.color}</h4>
             </div>
-            <div className="info-size flex justify-between">
+            {/* <div className="info-size flex justify-between">
               <h4>Tamanho:</h4>
 
               <div className="product-sizes flex gap-4">
                 {produtoId.ProductSize.filter((size) => size.stock > 1).map(
-                  (size) => (
+                  (size, index) => (
                     <div key={size.id} className="product-size flex gap-2">
                       <label className="radio">
-                        <input type="radio" name="size" id="S" value="s" />
+                        <input
+                          type="radio"
+                          name="size"
+                          id={size.size}
+                          value={size.size}
+                          defaultChecked={index === 0}
+                        />
                         <span className="radio-option">{size.size}</span>
                       </label>
                     </div>
                   )
                 )}
-              </div>
-            </div>
+              </div> 
+            </div>*/}
 
-            <div className="buy-button flex items-center justify-center overflow-hidden">
-              <BuyButton productId={produtoId.id} price={produtoId.price} />
+            <div className="buy-button flex items-center justify-center ">
+              <BuyButton
+                productId={produtoId.id}
+                price={produtoId.price}
+                productSize={produtoId.ProductSize}
+              />
             </div>
           </div>
         </div>

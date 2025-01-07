@@ -4,6 +4,7 @@ import db from "@/db/db";
 import { addSchema } from "@/schema/productSchema";
 import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 // import { redirect } from "next/navigation";
 
 
@@ -69,22 +70,35 @@ export async function deleteProduct(id: string) {
 }
 
 
-export async function buyProduct(id: string, value: number) {
+export async function buyProduct(id: string, value: number, productSize: string) {
   const producto = await db.product.findUnique({
     where: { id },
     select: {
       price: true,
       ProductSize: {
         select: {
+          id: true,
           size: true,
           stock: true,
         }
       }
-      // stock: true,
     }
   })
 
   if (!producto) return "product not found";
+
+  const size = producto.ProductSize.find((s) => s.size === productSize)
+
+  // const size = db.productSize.findFirst({
+  //   where: {
+  //     size: productSize
+  //   },
+  //   select: {
+  //     id: true
+  //   }
+  // })
+
+  if (!size) return "inexistent size";
 
   const pedido = await db.order.create({
     data: {
@@ -92,7 +106,7 @@ export async function buyProduct(id: string, value: number) {
       price: producto?.price,
       quantity: value,
       totalPrice: producto.price * value,
-
+      productSizeId: size.id,
     }
   })
 
@@ -102,7 +116,7 @@ export async function buyProduct(id: string, value: number) {
       ProductSize: {
         update: {
           where: {
-            id: "1",
+            id: size.id,
           },
           data: {
             stock: {
@@ -117,6 +131,7 @@ export async function buyProduct(id: string, value: number) {
 
   console.log(pedido, buying)
   revalidatePath("/")
-  revalidatePath("/products")
+  revalidatePath("/produtos")
   revalidatePath("/admin/products")
+  redirect(`/produtos/${id}`)
 }

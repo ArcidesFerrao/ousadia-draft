@@ -26,6 +26,7 @@ const OrdersTable = async () => {
       quantity: true,
       totalPrice: true,
       status: true,
+      productSize: true,
     },
     orderBy: { createdAt: "desc" },
   });
@@ -40,6 +41,7 @@ const OrdersTable = async () => {
       <thead>
         <tr>
           <th>Pedidos ({orders.length})</th>
+          <th>Tamanho</th>
           <th>Quantidade</th>
           <th>Preco (MZN)</th>
           <th>Total</th>
@@ -50,6 +52,7 @@ const OrdersTable = async () => {
         {orders.map((order) => (
           <tr key={order.id}>
             <td>{order.product.name}</td>
+            <td>{order.productSize?.size}</td>
             <td>{order.quantity}</td>
             <td>{order.price}.00</td>
             <td>{order.totalPrice}</td>

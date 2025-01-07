@@ -383,6 +383,8 @@ table thead tr th {
   color: var(--background);
   border-radius: 0;
 }
+
+.radio-category,
 .radio-sizes {
   .radio input[type="radio"] {
     display: none;

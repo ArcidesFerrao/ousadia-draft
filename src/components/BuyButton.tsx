@@ -9,17 +9,19 @@ const OptionButton = ({
   productId,
   value,
   setShowOption,
+  productSize,
 }: {
   productId: string;
   value: number;
   setShowOption: Dispatch<SetStateAction<boolean>>;
+  productSize: string;
 }) => {
   const [visa, setVisa] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   const handleBuy = () => {
     if (phoneNumber === "841234567") {
-      buyProduct(productId, value);
+      buyProduct(productId, value, productSize);
       toast.success("Success");
     } else {
       toast.error("Error");
@@ -105,14 +107,44 @@ const OptionButton = ({
 export default function BuyButton({
   productId,
   price,
+  productSize,
 }: {
   productId: string;
   price: number;
+  productSize: { id: string; size: string; stock: number }[];
 }) {
   const [showOption, setShowOption] = useState<boolean>(false);
   const [quantityValue, setQuantityValue] = useState<number>(1);
+  const [selectedSize, setSelectedSize] = useState<string>("");
+
+  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedSize(e.target.value);
+  };
   return (
     <div className="w-full flex flex-col gap-4 ">
+      <div className="info-size flex justify-between">
+        <h4>Tamanho:</h4>
+
+        <div className="product-sizes flex gap-4">
+          {productSize
+            .filter((size) => size.stock > 1)
+            .map((size, index) => (
+              <div key={size.id} className="product-size flex gap-2">
+                <label className="radio">
+                  <input
+                    type="radio"
+                    name="size"
+                    id={size.size}
+                    value={size.size}
+                    defaultChecked={index === 0}
+                    onChange={handleSizeChange}
+                  />
+                  <span className="radio-option">{size.size}</span>
+                </label>
+              </div>
+            ))}
+        </div>
+      </div>
       <div className="quantity-buy flex justify-between ">
         <label htmlFor="quantity">Quantidade:</label>
         <input
@@ -131,6 +163,7 @@ export default function BuyButton({
           productId={productId}
           value={quantityValue}
           setShowOption={setShowOption}
+          productSize={selectedSize}
         />
       ) : (
         <div className="">
