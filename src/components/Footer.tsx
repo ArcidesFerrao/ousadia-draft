@@ -17,7 +17,7 @@ export default function Footer() {
       <footer>
         <section className="footer-section ">
           <div className="footer-ousadia flex items-center gap-8">
-            <div className="icon-ousadia">
+            <div className="icon-ousadia h-40 flex items-center ">
               <NavLink href="/">
                 <FooterIcon />
               </NavLink>
@@ -56,7 +56,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="footer-rights flex justify-between">
+          <div className="footer-rights flex justify-between p-2">
             <p>© 2024 - Todos direitos reservados</p>
             <p>
               Criado por:{` `}

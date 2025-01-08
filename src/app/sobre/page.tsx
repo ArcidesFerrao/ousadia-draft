@@ -46,26 +46,30 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
-        <div className="about-contact">
-          <div className="about-header-title p-4">
-            <h2>Onde estamos</h2>
-          </div>
-          <div className="about-header-details mx-4 flex flex-col gap-4">
-            <p className="text-lg font-thin">
-              Bairro do Infulene, Av. 04 de Outubro
-            </p>
+        <div className="about-footer">
+          <div className="about-contact">
+            <div className="about-header-title p-4">
+              <h2>Onde estamos</h2>
+            </div>
+            <div className="about-header-details mx-4 flex flex-col gap-4">
+              <p className="text-lg font-thin">
+                Bairro do Infulene, Av. 04 de Outubro
+              </p>
 
-            <p className="flex gap-2 text-lg font-thin">Matola - Moçambique</p>
+              <p className="flex gap-2 text-lg font-thin">
+                Matola - Moçambique
+              </p>
 
-            <p className=" flex gap-2 text-lg font-thin">
-              <Image
-                src="/assets/mdphone2.png"
-                width={18}
-                height={16}
-                alt="phone"
-              />
-              +258 845398661
-            </p>
+              <p className=" flex gap-2 text-lg font-thin">
+                <Image
+                  src="/assets/mdphone2.png"
+                  width={18}
+                  height={16}
+                  alt="phone"
+                />
+                +258 845398661
+              </p>
+            </div>
           </div>
         </div>
       </div>

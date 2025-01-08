@@ -8,5 +8,7 @@ export default function NavIcon() {
 }
 
 export function FooterIcon() {
-  return <Image src={iconPath} width={200} height={200} alt="Ousadia" />;
+  return (
+    <Image src="/assets/Logomarca.png" width={200} height={200} alt="Ousadia" />
+  );
 }
