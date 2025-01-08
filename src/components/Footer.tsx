@@ -52,7 +52,7 @@ export default function Footer() {
               <div className="page-links flex flex-col gap-2">
                 <NavLink href="/produtos">Produtos</NavLink>
                 <NavLink href="/contacto">Contacto</NavLink>
-                <NavLink href="/about">Sobre Ousadia</NavLink>
+                <NavLink href="/sobre">Sobre Ousadia</NavLink>
               </div>
             </div>
           </div>

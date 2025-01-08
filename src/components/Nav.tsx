@@ -50,7 +50,7 @@ export const NavBar = () => {
             </div> */}
           </div>
           <div className="nav-about">
-            <NavLink href="/about">Sobre Ousadia</NavLink>
+            <NavLink href="/sobre">Sobre Ousadia</NavLink>
           </div>
           <div className="nav-contact">
             <NavLink href="/contacto">Contacto</NavLink>

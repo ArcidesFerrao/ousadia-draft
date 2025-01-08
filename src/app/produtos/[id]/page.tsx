@@ -31,7 +31,7 @@ export default async function ProductoPage({
   }
 
   return (
-    <main className="py-8">
+    <main className="py-12">
       <div className="product-container flex justify-around w-full">
         <div className="product-image rounded-lg overflow-hidden w-fit ">
           <Image

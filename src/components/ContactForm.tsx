@@ -5,7 +5,7 @@ export default function ContactForm() {
     <form
       //   action="/api/sendEmail"
       method="POST"
-      className="flex flex-col w-4/6 gap-4"
+      className="contact-form flex flex-col w-4/6 gap-4"
     >
       <div className="full-name flex flex-col gap-4">
         <div className="flex justify-between ">
