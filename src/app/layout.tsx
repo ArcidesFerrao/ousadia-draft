@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Ousadia",
-  description: "Loja de Camisetes",
+  description: "Marca moçambicana de vestuário",
 };
 
 const ubuntu = Ubuntu({
