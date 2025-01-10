@@ -34,7 +34,11 @@ export const AccountDropDown = () => {
         />
       </button>
       {isDropdownOpen && (
-        <div className="nav-dropdown-menu absolute top-full right-0 rounded shadow-lg flex flex-col w-fit items-center">
+        <div
+          className={`nav-dropdown-menu absolute top-full right-0 mt-2 rounded shadow-lg flex flex-col w-fit ${
+            isDropdownOpen ? "show" : "hide"
+          }`}
+        >
           <NavLink href="/">Sign In</NavLink>
           <NavLink href="/">Sign Up</NavLink>
         </div>
@@ -56,7 +60,10 @@ export const CategoryDrop = () => {
     >
       <NavLink href="/categorias">Categorias</NavLink>
       {isCategoryHover && (
-        <div className="menu-categorias absolute top-full rounded shadow-lg flex">
+        <div
+          className={`menu-categorias absolute top-full rounded shadow-lg flex 
+            ${isCategoryHover ? "show" : "hide"}`}
+        >
           <div className="camisetes">
             <h3 className="border-b-2">Shetas</h3>
             <NavLink href="/categorias">Maningue Cenas</NavLink>
