@@ -57,7 +57,7 @@ const OrdersTable = async () => {
             <td>{order.price}.00</td>
             <td>{order.totalPrice}</td>
             <td>
-              <UpdateStatus status={order.status} id={order.id.toString()} />
+              <UpdateStatus status={order.status} id={order.id} />
             </td>
           </tr>
         ))}

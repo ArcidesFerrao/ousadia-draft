@@ -54,7 +54,7 @@ export const UpdateStatus = ({
   id,
 }: {
   status: string;
-  id: string;
+  id: number;
 }) => {
   return <NavLink href={`/admin/orders/${id}`}>{status}</NavLink>;
 };

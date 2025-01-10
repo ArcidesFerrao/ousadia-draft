@@ -552,6 +552,16 @@ table thead tr th {
   padding-bottom: 2rem;
 }
 
+.order-info {
+  background-color: var(--admin-card-hover);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.order-info p {
+  padding: 1rem;
+}
+
 @media (max-width: 1000px) {
   .products-list {
     margin: 1rem;
