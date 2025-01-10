@@ -73,6 +73,15 @@ export const CategoryDrop = () => {
             <h3 className="border-b-2">Bonés</h3>
             <NavLink href="/categorias">Love</NavLink>
           </div>
+          <div className="collabs">
+            <h3 className="border-b-2">Collabs</h3>
+            <NavLink href="/categorias">Cronicas da Tawen</NavLink>
+          </div>
+          <div className="marcas">
+            <h3 className="border-b-2">Marcas</h3>
+            <NavLink href="/categorias">Ousadia</NavLink>
+            <NavLink href="/categorias">Ndheka</NavLink>
+          </div>
         </div>
       )}
     </div>
