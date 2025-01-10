@@ -34,7 +34,7 @@ export const AccountDropDown = () => {
         />
       </button>
       {isDropdownOpen && (
-        <div className="nav-dropdown-menu absolute top-full right-0 mt-2  rounded shadow-lg flex flex-col w-fit">
+        <div className="nav-dropdown-menu absolute top-full right-0 rounded shadow-lg flex flex-col w-fit items-center">
           <NavLink href="/">Sign In</NavLink>
           <NavLink href="/">Sign Up</NavLink>
         </div>

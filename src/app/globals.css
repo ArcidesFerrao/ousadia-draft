@@ -245,7 +245,7 @@ table thead tr th {
   gap: 1rem;
   background-color: var(--foreground);
   min-width: 6rem;
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .button-quero {
