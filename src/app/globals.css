@@ -248,6 +248,25 @@ table thead tr th {
   padding: 0.5rem 1rem;
 }
 
+.status-dropdown-menu {
+  gap: 0 !important;
+}
+.status-dropdown-menu p {
+  border-radius: 0 !important;
+}
+
+.status-dropdown-menu p:hover {
+  background-color: var(--light-grey);
+}
+
+.status-dropdown-menu button:disabled:hover {
+  cursor: not-allowed;
+  /* background-color: transparent; */
+}
+.status-dropdown-menu button:hover {
+  color: var(--foreground);
+}
+
 .button-quero {
   background-color: var(--green-color);
   width: 100%;
@@ -559,7 +578,17 @@ table thead tr th {
 }
 
 .order-info p {
-  padding: 1rem;
+  padding: 0.4rem 1rem;
+  background-color: var(--dark-grey);
+  border-radius: 0.4rem;
+  min-width: 4rem;
+}
+
+.order-status-info div,
+.order-product-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 @media (max-width: 1000px) {

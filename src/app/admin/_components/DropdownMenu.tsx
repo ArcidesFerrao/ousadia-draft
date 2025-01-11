@@ -56,5 +56,17 @@ export const UpdateStatus = ({
   status: string;
   id: number;
 }) => {
-  return <NavLink href={`/admin/orders/${id}`}>{status}</NavLink>;
+  const statusColor: Record<string, string> = {
+    delivered: "text-green-300",
+    canceled: "text-red-300",
+    pending: "text-yellow-300",
+  };
+
+  return (
+    <NavLink href={`/admin/orders/${id}`}>
+      <p className={`font-semibold ${statusColor[status] || "text-gray-500"} `}>
+        {status}
+      </p>
+    </NavLink>
+  );
 };

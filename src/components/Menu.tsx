@@ -1,7 +1,9 @@
-// import React, { useEffect, useRef, useState } from "react";
+"use client";
+
 import { NavLink } from "./Nav";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { updateStatus } from "@/actions/orders";
 
 export const AccountDropDown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -82,6 +84,68 @@ export const CategoryDrop = () => {
             <NavLink href="/categorias">Ousadia</NavLink>
             <NavLink href="/categorias">Ndheka</NavLink>
           </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const validStatuses = ["pending", "shipped", "delivered", "canceled"];
+
+export const StatusDropDown = ({
+  status,
+  orderId,
+}: {
+  status: string;
+  orderId: number;
+}) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleStatusChange = async (newStatus: string) => {
+    await updateStatus({ orderId, newStatus });
+  };
+
+  return (
+    <div className="status-product relative min-w-24" ref={dropdownRef}>
+      <h3>Status</h3>
+      <button onClick={() => setIsDropdownOpen((prev) => !prev)}>
+        <p>{status}</p>
+      </button>
+      {isDropdownOpen && (
+        <div
+          className={`status-dropdown-menu absolute top-full right-0 min-w-24 shadow-lg flex flex-col w-fit ${
+            isDropdownOpen ? "show" : "hide"
+          }`}
+        >
+          {validStatuses.map((validStatus) => (
+            <button
+              key={validStatus}
+              onClick={() => handleStatusChange(validStatus)}
+              disabled={validStatus === status}
+              className={`${
+                validStatus === status ? "text-gray-500" : "hover:bg-gray-100"
+              }`}
+            >
+              <p>{validStatus}</p>
+            </button>
+          ))}
         </div>
       )}
     </div>
