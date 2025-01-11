@@ -2,7 +2,7 @@
 
 import { buyProduct } from "@/actions/products";
 import Image from "next/image";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const OptionButton = ({
@@ -205,6 +205,12 @@ export const BuyButtonWithSize = ({
     stock: number;
   } | null>(null);
 
+  useEffect(() => {
+    if (productSize.length > 0) {
+      setSelectedSize(productSize[0]);
+    }
+  }, [productSize]);
+
   const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = productSize.find((size) => size.size === e.target.value);
     if (selected) {
@@ -231,7 +237,7 @@ export const BuyButtonWithSize = ({
         <div className="product-sizes flex gap-4">
           {productSize
             .filter((size) => size.stock > 1)
-            .map((size, index) => (
+            .map((size) => (
               <div key={size.id} className="product-size flex gap-2">
                 <label className="radio">
                   <input
@@ -239,7 +245,7 @@ export const BuyButtonWithSize = ({
                     name="size"
                     id={size.size}
                     value={size.size}
-                    defaultChecked={index === 0}
+                    checked={selectedSize?.size === size.size}
                     onChange={handleSizeChange}
                   />
                   <span className="radio-option">{size.size}</span>
@@ -255,7 +261,7 @@ export const BuyButtonWithSize = ({
           type="number"
           value={quantityValue}
           min={1}
-          max={selectedSize?.stock}
+          max={selectedSize?.stock || 1}
           onChange={handleQuantityChange}
         />
       </div>
