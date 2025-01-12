@@ -229,6 +229,15 @@ table thead tr th {
   position: relative;
 }
 
+.mobile-nav-links a:hover {
+  border-bottom: var(--light-grey) solid 1px;
+}
+.mobile-nav-links {
+  background-color: var(--foreground);
+  padding: 1rem 2rem;
+  border-bottom: var(--foreground) solid 1px;
+}
+
 .menu-categorias div {
   padding: 0.4rem 0;
   display: flex;
@@ -629,6 +638,17 @@ table thead tr th {
 @media (max-width: 440px) {
   .products-list {
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 650px) {
+  .nav-menu-button {
+    display: none;
+  }
+}
+@media (max-width: 649px) {
+  .wide-screen-nav {
+    display: none;
   }
 }
 

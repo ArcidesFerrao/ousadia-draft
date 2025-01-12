@@ -5,7 +5,7 @@ export default function CategoriesPage() {
     <main className="py-4">
       <div className="shirts-list">
         <div className="title">
-          <h2>T-shirts</h2>
+          <h2>Shetas</h2>
         </div>
         <div className="products-list flex flex-auto justify-between"></div>
       </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import NavIcon from "./NavIcon";
 import { AccountDropDown, CategoryDrop } from "./Menu";
 
@@ -28,26 +28,52 @@ export function NavLink({ ...props }) {
 
 export const NavBar = () => {
   const pathname = usePathname();
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isAdminRoute = pathname?.startsWith("/admin");
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
   return (
     !isAdminRoute && (
       <Nav>
-        <div className="nav-links flex gap-4">
+        <div className="nav-menu-button">
+          <button onClick={toggleMenu}>|||</button>
+          {isMenuOpen && (
+            <div className="mobile-nav-links flex flex-col absolute  gap-4">
+              <div className="produtos">
+                <NavLink href="/produtos">Produtos</NavLink>
+              </div>
+              <div className="categorias">
+                <NavLink href="/categorias">Categorias</NavLink>
+              </div>
+              {/* <CategoryDrop /> */}
+              <div className="nav-about">
+                <NavLink href="/sobreousadia">Sobre Ousadia</NavLink>
+              </div>
+              <div className="nav-contact">
+                <NavLink href="/contacto">Contacto</NavLink>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="wide-screen-nav nav-links flex gap-4">
           <div className="produtos">
             <NavLink href="/produtos">Produtos</NavLink>
           </div>
           <CategoryDrop />
           <div className="nav-about">
-            <NavLink href="/sobre">Sobre Ousadia</NavLink>
+            <NavLink href="/sobreousadia">Sobre Ousadia</NavLink>
           </div>
           <div className="nav-contact">
             <NavLink href="/contacto">Contacto</NavLink>
           </div>
         </div>
         <div className="nav-icon">
-          <NavIcon />
+          <NavLink href="/">
+            <NavIcon />
+          </NavLink>
         </div>
         <AccountDropDown />
       </Nav>
