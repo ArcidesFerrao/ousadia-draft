@@ -1,13 +1,15 @@
 "use client";
 
-import { addProduct } from "@/actions/products";
+import { addProduct, updateProduct } from "@/actions/products";
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import React, { useActionState, useEffect, useState } from "react";
 import { useForm } from "@conform-to/react";
-import { useFormStatus } from "react-dom";
+// import { useFormStatus } from "react-dom";
 import { parseWithZod } from "@conform-to/zod";
 import { addSchema } from "@/schema/productSchema";
+import { toast } from "react-toastify";
+import { Product, ProductSize } from "@prisma/client";
 
 type Category = {
   id: number;
@@ -15,13 +17,29 @@ type Category = {
   description: string | null;
 };
 
-export default function ProductForm() {
-  const [state, action, pending] = useActionState(addProduct, undefined);
-  const [priceFormat, setPriceFormat] = useState<number | null>(null);
+export default function ProductForm({
+  product,
+  productSize,
+}: {
+  product?: Product | null;
+  productSize?: ProductSize[] | null;
+}) {
+  const actionState = async (state: unknown, formData: FormData) => {
+    if (product) {
+      return await updateProduct(product.id, state, formData);
+    } else {
+      return await addProduct(state, formData);
+    }
+  };
+
+  const [state, action, pending] = useActionState(actionState, {});
+  const [priceFormat, setPriceFormat] = useState<number | null>(
+    product?.price || null
+  );
   const [categoriesL, setCategoriesL] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [mainImage, setMainImage] = useState<string>();
-  const [backImage, setBackImage] = useState<string>();
+  const [mainImage, setMainImage] = useState<string>(product?.imageUrl || "");
+  // const [backImage, setBackImage] = useState<string>();
 
   const [form, fields] = useForm({
     onValidate({ formData }) {
@@ -49,47 +67,20 @@ export default function ProductForm() {
     };
 
     getCategories();
-  }, []);
+
+    if (state) {
+      toast.success(state.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+      });
+    }
+  }, [state]);
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? parseFloat(e.target.value) : null;
     setPriceFormat(value);
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-
-    // formData.append("name", form.value?.name || "");
-    // formData.append("color", form.value?.color || "");
-    // formData.append("brand", form.value?.brand || "");
-    // formData.append("price", form.value?.price || "");
-    // formData.append("size", form.value?.size || "");
-    // formData.append("category", form.value?.category || "");
-    // formData.append("stock", form.value?.stock || "");
-    // formData.append("imageUrl", mainImage || "");
-
-    // const formData = {
-    //   name: form.value?.name,
-    //   color: form.value?.color,
-    //   brand: form.value?.brand,
-    //   price: form.value?.price,
-    //   size: form.value?.size,
-    //   category: form.value?.category,
-    //   stock: form.value?.stock,
-    //   imageUrl: mainImage,
-    // };
-
-    console.log("Form Data: ", formData);
-
-    // try {
-    //   action(formData);
-    // } catch (error) {
-    //   console.error("Error: ", error);
-    // }
-
-    form.onSubmit(e);
   };
 
   return (
@@ -98,14 +89,20 @@ export default function ProductForm() {
       <div className="form-product flex flex-col">
         <form
           id={form.id}
-          onSubmit={handleSubmit}
+          onSubmit={form.onSubmit}
           action={action}
           className="flex flex-col gap-6 p-4 h-fit"
         >
           <div className="name-price flex gap-4">
             <div className="name  flex justify-between">
               <label htmlFor="name">Nome:</label>
-              <input type="text" id="name" name="name" disabled={pending} />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                defaultValue={product?.name}
+                disabled={pending}
+              />
             </div>
             <div className="price flex gap-2 items-center">
               <label htmlFor="price">Preco:</label>
@@ -128,7 +125,7 @@ export default function ProductForm() {
           </div>
 
           <div className="category flex justify-between">
-            <h3>Categoria:</h3>
+            <label>Categoria:</label>
             <div className="radio-category flex gap-2">
               {categoriesL.map((category) => (
                 <label key={category.id} className="radio">
@@ -136,6 +133,7 @@ export default function ProductForm() {
                     type="radio"
                     name="category"
                     value={category.id}
+                    defaultChecked={category.id === product?.categoryId}
                     onChange={handleCategoryChange}
                   />
                   <span className="radio-option">{category.name}</span>
@@ -147,40 +145,50 @@ export default function ProductForm() {
             <div className="left-section flex flex-col gap-4">
               <div className="color flex justify-between">
                 <label htmlFor="color">Cor:</label>
-                <input type="text" id="color" name="color" />
+                <input
+                  type="text"
+                  id="color"
+                  name="color"
+                  defaultValue={product?.color}
+                />
               </div>
               <div className="brand flex justify-between">
                 <label htmlFor="brand">Marca:</label>
-                <input type="text" id="brand" name="brand" />
+                <input
+                  type="text"
+                  id="brand"
+                  name="brand"
+                  defaultValue={product?.brand}
+                />
               </div>
               <div className="quantidade flex justify-between">
                 <label htmlFor="stock">Quantidade:</label>
-                <input type="number" id="stock" name="stock" />
+                <input
+                  type="number"
+                  id="stock"
+                  name="stock"
+                  defaultValue={productSize?.[0].stock || 0}
+                />
               </div>
             </div>
             <div className="right-section">
               <div className="size flex flex-col gap-4">
-                <h3>Tamanho:</h3>
+                <label>Tamanho:</label>
                 <div className="radio-sizes flex gap-2">
                   <label className="radio">
-                    <input type="radio" name="size" id="S" value="small" />
+                    <input type="radio" name="size" id="S" value="s" />
                     <span className="radio-option">S</span>
                   </label>
                   <label className="radio">
-                    <input type="radio" name="size" id="M" value="medium" />
+                    <input type="radio" name="size" id="M" value="m" />
                     <span className="radio-option">M</span>
                   </label>
                   <label className="radio">
-                    <input type="radio" name="size" id="L" value="large" />
+                    <input type="radio" name="size" id="L" value="l" />
                     <span className="radio-option">L</span>
                   </label>
                   <label className="radio">
-                    <input
-                      type="radio"
-                      name="size"
-                      id="XL"
-                      value="extra-large"
-                    />
+                    <input type="radio" name="size" id="XL" value="xl" />
                     <span className="radio-option">XL</span>
                   </label>
                 </div>
@@ -191,6 +199,7 @@ export default function ProductForm() {
           <div className="imagesUpload flex  gap-4">
             <div className="main-image-upload flex flex-col gap-4">
               <h3>Main Image</h3>
+              <input type="hidden" value={mainImage} name="imageUrl" />
               {mainImage ? (
                 <Image
                   src={mainImage}
@@ -215,7 +224,7 @@ export default function ProductForm() {
             </div>
             <div className="back-image-upload  flex flex-col gap-4">
               <h3>Back Image</h3>
-              {backImage ? (
+              {/* {backImage ? (
                 <Image
                   src={backImage}
                   alt="back image"
@@ -235,20 +244,15 @@ export default function ProductForm() {
                     alert("something went wrong");
                   }}
                 />
-              )}
+              )} */}
             </div>
           </div>
-          <SubmitButton />
+          <SubmitButton
+            value={product ? "Update" : "Add"}
+            pendingValue={product ? "Updating..." : "Adding..."}
+            pending={pending}
+          />
         </form>
-        {/* {errorList && (
-          <ul>
-            {Object.entries(errorList).map(([key, value]) => (
-              <li className="error" key={key}>
-                {key}: {value}
-              </li>
-            ))}
-          </ul>
-        )} */}
         {fields.name.errors && (
           <p className="errorsField">{fields.name.errors}</p>
         )}
@@ -258,22 +262,27 @@ export default function ProductForm() {
         {fields.stock.errors && (
           <p className="errorsField">{fields.stock.errors}</p>
         )}
-        {state?.message}
       </div>
     </div>
   );
 }
 
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-
+const SubmitButton = ({
+  value,
+  pendingValue,
+  pending,
+}: {
+  value: string;
+  pendingValue: string;
+  pending: boolean;
+}) => {
   return (
     <input
       className={pending ? "sudmit-button" : ""}
       type="submit"
       name="submit"
       id="submit"
-      value="Add"
+      value={pending ? pendingValue : value}
       disabled={pending}
     />
   );

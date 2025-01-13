@@ -1,6 +1,10 @@
 import db from "@/db/db";
 import { AddButton } from "@/components/AddButton";
-import { Active, DeleteDropdownItem } from "../_components/DropdownMenu";
+import {
+  Active,
+  DeleteDropdownItem,
+  EditItem,
+} from "../_components/DropdownMenu";
 
 export default function ProductsAdminPage() {
   return (
@@ -50,6 +54,9 @@ const ProductsTable = async () => {
           <th>Quantidade</th>
           <th>Preco (MZN)</th>
           <th>
+            <span className="sr-only">Edit</span>
+          </th>
+          <th>
             <span className="sr-only">Delete</span>
           </th>
           <th>
@@ -76,6 +83,9 @@ const ProductsTable = async () => {
               )}
             </td>
             <td>{product.price}.00</td>
+            <td>
+              <EditItem id={product.id} />
+            </td>
             <td>
               <DeleteDropdownItem id={product.id} />
             </td>

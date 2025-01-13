@@ -4,6 +4,14 @@ import { deleteProduct } from "@/actions/products";
 import { useEffect, useState, useTransition } from "react";
 import { NavLink } from "@/components/Nav";
 
+export const EditItem = ({ id }: { id: string }) => {
+  return (
+    <NavLink href={`/admin/products/${id}/edit`}>
+      <Image src="/assets/edit-outline.png" alt="edit" width={24} height={24} />
+    </NavLink>
+  );
+};
+
 export const DeleteDropdownItem = ({ id }: { id: string }) => {
   const [isPending, startTransition] = useTransition();
 

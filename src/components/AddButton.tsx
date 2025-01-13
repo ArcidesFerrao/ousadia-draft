@@ -13,3 +13,10 @@ export const AddButton = ({ ...props }) => {
     </NavLink>
   );
 };
+export const CancelButton = ({ ...props }) => {
+  return (
+    <NavLink href={props.href}>
+      <div className="add-button">Cancelar</div>
+    </NavLink>
+  );
+};

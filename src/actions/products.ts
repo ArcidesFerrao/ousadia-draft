@@ -38,20 +38,39 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   
   revalidatePath("/")
   revalidatePath("/products")
-  // redirect("/admin/products")
-  if ( submission.status === "success" ) {
 
+  
+  if ( submission.status === "success" ) {
+    
     return {
       status: "success",
       message: "Post created successfully"
     }
   }
+  redirect("/admin/products")
   
 } 
 
-export async function updateProduct(id: string, precState: unknown, formData: FormData) {
-    const result = addSchema.safeParse(Object.fromEntries(formData.entries()))
-    console.log(result.data)
+export async function updateProduct(id: string, prevState: unknown, formData: FormData): Promise<void> {
+  const submission = parseWithZod(formData, { schema: addSchema });
+
+  // if(submission.status !== "success") return submission.error;
+  if (submission.status === "success") {
+
+    await db.product.update({
+      where: { id },
+      data: {
+        name: submission.value.name,
+        description: submission.value.description,
+        price: submission.value.price,
+        color: submission.value.color,
+        brand: submission.value.brand,
+        
+      }
+    })
+  }
+
+    console.log(submission)
 }
 
 
