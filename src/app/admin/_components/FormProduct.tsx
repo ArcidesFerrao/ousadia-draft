@@ -117,6 +117,29 @@ export default function ProductForm() {
               ))}
             </div>
           </div>
+
+          <div>
+            <h3>Tamanho</h3>
+            <div className="sizeInput flex gap-4">
+              <label htmlFor="small" className="flex flex-col">
+                <span>S</span>
+                <input type="number" min={0} id="small" name="S" />
+              </label>
+              <label htmlFor="medium" className="flex flex-col">
+                <span>M</span>
+                <input type="number" min={0} id="medium" name="M" />
+              </label>
+              <label htmlFor="large" className="flex flex-col">
+                <span>L</span>
+                <input type="number" min={0} id="large" name="L" />
+              </label>
+              <label htmlFor="extra-large" className="flex flex-col">
+                <span>XL</span>
+                <input type="number" min={0} id="estra-large" name="XL" />
+              </label>
+            </div>
+          </div>
+
           <div className="bottom-section flex justify-between">
             <div className="left-section flex flex-col gap-4">
               <div className="color flex justify-between">
@@ -127,10 +150,10 @@ export default function ProductForm() {
                 <label htmlFor="brand">Marca:</label>
                 <input type="text" id="brand" name="brand" />
               </div>
-              <div className="quantidade flex justify-between">
+              {/* <div className="quantidade flex justify-between">
                 <label htmlFor="stock">Quantidade:</label>
                 <input type="number" id="stock" name="stock" />
-              </div>
+              </div> */}
             </div>
             <div className="right-section">
               <div className="size flex flex-col gap-4">
