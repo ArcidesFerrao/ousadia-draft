@@ -616,6 +616,10 @@ table thead tr th {
   padding: 0.4rem 0.4rem;
 }
 
+.sizeZero {
+  background-color: #171717 !important;
+}
+
 @media (max-width: 1000px) {
   .products-list {
     margin: 1rem;

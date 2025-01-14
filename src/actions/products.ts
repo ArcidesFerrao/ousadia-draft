@@ -3,6 +3,7 @@ import db from "@/db/db";
 // import { useTransition } from "react"
 import { addSchema } from "@/schema/productSchema";
 import { parseWithZod } from "@conform-to/zod";
+import { Product } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 // import { redirect } from "next/navigation";
@@ -78,19 +79,14 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   
 } 
 
-export async function updateProduct(id: string, prevState: unknown, formData: FormData): Promise<void | Record<string, string[] | null>> {
+export async function updateProduct(prevState: Product | void, formData: FormData): Promise<void | Record<string, string[] | null>> {
   const submission = parseWithZod(formData, { schema: addSchema });
 
-  // if(submission.status !== "success") {
-  //    if (submission.error?.fieldErrors ) return submission.error.fieldErrors
-    
-  //   }
-
-
   if (submission.status === "success") {
+    const productId = prevState?.id || "";
 
     await db.product.update({
-      where: { id },
+      where: { id: productId },
       data: {
         name: submission.value.name,
         description: submission.value.description,
@@ -124,7 +120,10 @@ export async function updateProduct(id: string, prevState: unknown, formData: Fo
       }
     })
   }
-    console.log(submission)
+
+  // if (submission.status !== "success") return submission.error
+    
+  console.log(submission)
 }
 
 

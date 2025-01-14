@@ -10,7 +10,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { addSchema } from "@/schema/productSchema";
 import { toast } from "react-toastify";
 
-type Category = {
+export type Category = {
   id: number;
   name: string;
   description: string | null;
