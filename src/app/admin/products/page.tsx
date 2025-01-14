@@ -69,7 +69,7 @@ const ProductsTable = async () => {
           <tr key={product.id}>
             <td>{product.name}</td>
             <td>{product.color}</td>
-            <td>
+            <td className="table-sizes">
               {product.ProductSize.map((size, index) => (
                 <p key={index}>
                   {size.size}: {size.stock}

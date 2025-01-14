@@ -22,7 +22,7 @@ export default function ProductForm() {
   const [categoriesL, setCategoriesL] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [mainImage, setMainImage] = useState<string>();
-  // const [backImage, setBackImage] = useState<string>();
+  const [backImage, setBackImage] = useState<string>();
 
   const [form, fields] = useForm({
     onValidate({ formData }) {
@@ -118,35 +118,10 @@ export default function ProductForm() {
             </div>
           </div>
 
-          <div>
-            <h3>Tamanho</h3>
-            <div className="sizeInput flex gap-4">
-              <label htmlFor="small" className="flex flex-col">
-                <span>S</span>
-                <input type="number" min={0} id="small" name="small" />
-              </label>
-              <label htmlFor="medium" className="flex flex-col">
-                <span>M</span>
-                <input type="number" min={0} id="medium" name="medium" />
-              </label>
-              <label htmlFor="large" className="flex flex-col">
-                <span>L</span>
-                <input type="number" min={0} id="large" name="large" />
-              </label>
-              <label htmlFor="extra-large" className="flex flex-col">
-                <span>XL</span>
-                <input
-                  type="number"
-                  min={0}
-                  id="extralarge"
-                  name="extralarge"
-                />
-              </label>
-            </div>
-          </div>
+          <div></div>
 
           <div className="bottom-section flex justify-between">
-            <div className="left-section flex flex-col gap-4">
+            <div className="left-section flex flex-col gap-4 justify-between">
               <div className="color flex justify-between">
                 <label htmlFor="color">Cor:</label>
                 <input type="text" id="color" name="color" />
@@ -160,32 +135,30 @@ export default function ProductForm() {
                 <input type="number" id="stock" name="stock" />
               </div> */}
             </div>
-            <div className="right-section">
-              <div className="size flex flex-col gap-4">
-                <h3>Tamanho:</h3>
-                <div className="radio-sizes flex gap-2">
-                  <label className="radio">
-                    <input type="radio" name="size" id="small" value="S" />
-                    <span className="radio-option">S</span>
-                  </label>
-                  <label className="radio">
-                    <input type="radio" name="size" id="medium" value="M" />
-                    <span className="radio-option">M</span>
-                  </label>
-                  <label className="radio">
-                    <input type="radio" name="size" id="large" value="L" />
-                    <span className="radio-option">L</span>
-                  </label>
-                  <label className="radio">
-                    <input
-                      type="radio"
-                      name="size"
-                      id="extra-large"
-                      value="XL"
-                    />
-                    <span className="radio-option">XL</span>
-                  </label>
-                </div>
+            <div className="size flex flex-col gap-4">
+              <label>Tamanho:</label>
+              <div className="sizeInput flex gap-4">
+                <label htmlFor="small" className="flex flex-col">
+                  <span>S</span>
+                  <input type="number" min={0} id="small" name="small" />
+                </label>
+                <label htmlFor="medium" className="flex flex-col">
+                  <span>M</span>
+                  <input type="number" min={0} id="medium" name="medium" />
+                </label>
+                <label htmlFor="large" className="flex flex-col">
+                  <span>L</span>
+                  <input type="number" min={0} id="large" name="large" />
+                </label>
+                <label htmlFor="extra-large" className="flex flex-col">
+                  <span>XL</span>
+                  <input
+                    type="number"
+                    min={0}
+                    id="extralarge"
+                    name="extralarge"
+                  />
+                </label>
               </div>
             </div>
           </div>
@@ -218,7 +191,9 @@ export default function ProductForm() {
             </div>
             <div className="back-image-upload  flex flex-col gap-4">
               <h3>Back Image</h3>
-              {/* {backImage ? (
+              <input type="hidden" value={backImage} name="backImageUrl" />
+
+              {backImage ? (
                 <Image
                   src={backImage}
                   alt="back image"
@@ -238,7 +213,7 @@ export default function ProductForm() {
                     alert("something went wrong");
                   }}
                 />
-              )} */}
+              )}
             </div>
           </div>
           <SubmitButton pending={pending} />
@@ -249,8 +224,8 @@ export default function ProductForm() {
         {fields.price.errors && (
           <p className="errorsField">{fields.price.errors}</p>
         )}
-        {fields.stock.errors && (
-          <p className="errorsField">{fields.stock.errors}</p>
+        {fields.backImageUrl.errors && (
+          <p className="errorsField">{fields.backImageUrl.errors}</p>
         )}
       </div>
     </div>

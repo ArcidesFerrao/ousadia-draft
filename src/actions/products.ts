@@ -24,7 +24,7 @@ export async function addProduct(prevState: unknown, formData: FormData) {
         ProductSize: {
           create: [
             {
-              size: "S",
+              size: "s",
               stock: submission.value.small,
             },
             {
@@ -32,11 +32,11 @@ export async function addProduct(prevState: unknown, formData: FormData) {
               stock: submission.value.medium,
             },
             {
-              size: "large",
+              size: "l",
               stock: submission.value.large,
             },
             {
-              size: "extralarge",
+              size: "xl",
               stock: submission.value.extralarge,
             },
           ]
@@ -46,6 +46,18 @@ export async function addProduct(prevState: unknown, formData: FormData) {
           connect: { id: submission.value.category }
         },
         imageUrl: submission.value.imageUrl,
+        images: {
+          create: [
+            {
+              type: "front",
+              url: submission.value.imageUrl,
+            },
+            {
+              type: "back",
+              url: submission.value.backImageUrl,
+            }
+          ]
+        }
     }
   })
   
@@ -66,10 +78,15 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   
 } 
 
-export async function updateProduct(id: string, prevState: unknown, formData: FormData): Promise<void> {
+export async function updateProduct(id: string, prevState: unknown, formData: FormData): Promise<void | Record<string, string[] | null>> {
   const submission = parseWithZod(formData, { schema: addSchema });
 
-  // if(submission.status !== "success") return submission.error;
+  // if(submission.status !== "success") {
+  //    if (submission.error?.fieldErrors ) return submission.error.fieldErrors
+    
+  //   }
+
+
   if (submission.status === "success") {
 
     await db.product.update({
@@ -83,7 +100,7 @@ export async function updateProduct(id: string, prevState: unknown, formData: Fo
         ProductSize: {
           create: [
             {
-              size: "S",
+              size: "s",
               stock: submission.value.small,
             },
             {
@@ -91,11 +108,11 @@ export async function updateProduct(id: string, prevState: unknown, formData: Fo
               stock: submission.value.medium,
             },
             {
-              size: "large",
+              size: "l",
               stock: submission.value.large,
             },
             {
-              size: "extralarge",
+              size: "xl",
               stock: submission.value.extralarge,
             },
           ]
@@ -103,6 +120,7 @@ export async function updateProduct(id: string, prevState: unknown, formData: Fo
         category: {
           connect: { id: submission.value.category }
         },
+
       }
     })
   }
@@ -111,10 +129,13 @@ export async function updateProduct(id: string, prevState: unknown, formData: Fo
 
 
 export async function deleteProduct(id: string) {
+  const productImage = await db.productImage.deleteMany({where: { productId: id }})
+  const productSize = await db.productSize.deleteMany({where: { productId: id}})
   const product = await db.product.delete({ where: { id } })
 
   if (product == null) return "product not found"
 
+  console.log(productImage, productSize)
   
 
   revalidatePath("/")
