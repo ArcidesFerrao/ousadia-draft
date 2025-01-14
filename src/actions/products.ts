@@ -22,10 +22,25 @@ export async function addProduct(prevState: unknown, formData: FormData) {
         brand: submission.value.brand,
         price: submission.value.price,
         ProductSize: {
-          create: {
-            size: submission.value.size,
-            stock: submission.value.stock,
-          }
+          create: [
+            {
+              size: "S",
+              stock: submission.value.small,
+            },
+            {
+              size: "m",
+              stock: submission.value.medium,
+            },
+            {
+              size: "large",
+              stock: submission.value.large,
+            },
+            {
+              size: "extralarge",
+              stock: submission.value.extralarge,
+            },
+          ]
+          
         },
         category: {
           connect: { id: submission.value.category }
@@ -65,11 +80,32 @@ export async function updateProduct(id: string, prevState: unknown, formData: Fo
         price: submission.value.price,
         color: submission.value.color,
         brand: submission.value.brand,
-        
+        ProductSize: {
+          create: [
+            {
+              size: "S",
+              stock: submission.value.small,
+            },
+            {
+              size: "m",
+              stock: submission.value.medium,
+            },
+            {
+              size: "large",
+              stock: submission.value.large,
+            },
+            {
+              size: "extralarge",
+              stock: submission.value.extralarge,
+            },
+          ]
+        },
+        category: {
+          connect: { id: submission.value.category }
+        },
       }
     })
   }
-
     console.log(submission)
 }
 

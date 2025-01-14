@@ -123,19 +123,24 @@ export default function ProductForm() {
             <div className="sizeInput flex gap-4">
               <label htmlFor="small" className="flex flex-col">
                 <span>S</span>
-                <input type="number" min={0} id="small" name="S" />
+                <input type="number" min={0} id="small" name="small" />
               </label>
               <label htmlFor="medium" className="flex flex-col">
                 <span>M</span>
-                <input type="number" min={0} id="medium" name="M" />
+                <input type="number" min={0} id="medium" name="medium" />
               </label>
               <label htmlFor="large" className="flex flex-col">
                 <span>L</span>
-                <input type="number" min={0} id="large" name="L" />
+                <input type="number" min={0} id="large" name="large" />
               </label>
               <label htmlFor="extra-large" className="flex flex-col">
                 <span>XL</span>
-                <input type="number" min={0} id="estra-large" name="XL" />
+                <input
+                  type="number"
+                  min={0}
+                  id="extralarge"
+                  name="extralarge"
+                />
               </label>
             </div>
           </div>
