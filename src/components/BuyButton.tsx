@@ -231,7 +231,7 @@ export const BuyButtonWithSize = ({
 
   return (
     <div className="w-full flex flex-col gap-4 ">
-      <div className="info-size flex justify-between">
+      <div className="info-size flex justify-between gap-4">
         <h4>Tamanho:</h4>
 
         <div className="product-sizes flex gap-4">
