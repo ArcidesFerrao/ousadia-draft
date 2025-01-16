@@ -219,15 +219,7 @@ export default function ProductForm({
             )}
           </div>
         </div>
-        <input
-          className={pending ? "sudmit-button" : ""}
-          type="submit"
-          name="submit"
-          id="submit"
-          value={pending ? "Updating..." : "Update"}
-          disabled={pending}
-        />
-        {/* <SubmitButton pending={pending} /> */}
+        <SubmitButton pending={pending} />
       </form>
       {fields.name.errors && (
         <p className="errorsField">{fields.name.errors}</p>
@@ -269,15 +261,15 @@ export default function ProductForm({
   );
 }
 
-// const SubmitButton = ({ pending }: { pending: boolean }) => {
-//   return (
-//     <input
-//       className={pending ? "sudmit-button" : ""}
-//       type="submit"
-//       name="submit"
-//       id="submit"
-//       value={pending ? "Updating..." : "Update"}
-//       disabled={pending}
-//     />
-//   );
-// };
+const SubmitButton = ({ pending }: { pending: boolean }) => {
+  return (
+    <input
+      className={pending ? "sudmit-button" : ""}
+      type="submit"
+      name="submit"
+      id="submit"
+      value={pending ? "Updating..." : "Update"}
+      disabled={pending}
+    />
+  );
+};
