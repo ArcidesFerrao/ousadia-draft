@@ -255,7 +255,9 @@ export const BuyButtonWithSize = ({
                       checked={selectedSize?.size === size.size}
                       onChange={handleSizeChange}
                     />
-                    <span className="radio-option">{size.size}</span>
+                    <span className="radio-option">
+                      {size.size.toLocaleUpperCase()}
+                    </span>
                   </label>
                 </div>
               ))
