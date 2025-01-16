@@ -204,8 +204,12 @@ export const BuyButtonWithSize = ({
     size: string;
     stock: number;
   } | null>(null);
+  const [unavalilableProduct, setUnavalilableProduct] = useState(false);
 
   useEffect(() => {
+    if (productSize.every((size) => size.stock <= 1)) {
+      setUnavalilableProduct(true);
+    }
     if (productSize.length > 0) {
       setSelectedSize(productSize[0]);
     }
@@ -232,39 +236,45 @@ export const BuyButtonWithSize = ({
   return (
     <div className="w-full flex flex-col gap-4 ">
       <div className="info-size flex justify-between gap-4">
-        <h4>Tamanho:</h4>
+        {!unavalilableProduct && <h4>Tamanho:</h4>}
 
         <div className="product-sizes flex gap-4">
-          {productSize
-            .filter((size) => size.stock > 1)
-            .map((size) => (
-              <div key={size.id} className="product-size flex gap-2">
-                <label className="radio">
-                  <input
-                    type="radio"
-                    name="size"
-                    id={size.size}
-                    value={size.size}
-                    checked={selectedSize?.size === size.size}
-                    onChange={handleSizeChange}
-                  />
-                  <span className="radio-option">{size.size}</span>
-                </label>
-              </div>
-            ))}
+          {unavalilableProduct ? (
+            <p>Out of stock</p>
+          ) : (
+            productSize
+              .filter((size) => size.stock > 1)
+              .map((size) => (
+                <div key={size.id} className="product-size flex gap-2">
+                  <label className="radio">
+                    <input
+                      type="radio"
+                      name="size"
+                      id={size.size}
+                      value={size.size}
+                      checked={selectedSize?.size === size.size}
+                      onChange={handleSizeChange}
+                    />
+                    <span className="radio-option">{size.size}</span>
+                  </label>
+                </div>
+              ))
+          )}
         </div>
       </div>
-      <div className="quantity-buy flex justify-between ">
-        <label htmlFor="quantity">Quantidade:</label>
-        <input
-          className="w-10 px-1 "
-          type="number"
-          value={quantityValue}
-          min={1}
-          max={selectedSize?.stock || 1}
-          onChange={handleQuantityChange}
-        />
-      </div>
+      {!unavalilableProduct && (
+        <div className="quantity-buy flex justify-between ">
+          <label htmlFor="quantity">Quantidade:</label>
+          <input
+            className="w-10 px-1 "
+            type="number"
+            value={quantityValue}
+            min={1}
+            max={selectedSize?.stock || 1}
+            onChange={handleQuantityChange}
+          />
+        </div>
+      )}
 
       {showOption ? (
         <OptionButton
@@ -274,23 +284,25 @@ export const BuyButtonWithSize = ({
           productSize={selectedSize?.size || ""}
         />
       ) : (
-        <div className="">
-          {quantityValue > 1 && (
-            <div className="total-price flex justify-between">
-              <h4>Total a pagar:</h4>
-              <h5>{price * quantityValue}.00 MZN</h5>
-            </div>
-          )}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setShowOption(!showOption);
-            }}
-            className="button-quero p-4 rounded-lg"
-          >
-            Eu Quero
-          </button>
-        </div>
+        !unavalilableProduct && (
+          <div className="">
+            {quantityValue > 1 && (
+              <div className="total-price flex justify-between">
+                <h4>Total a pagar:</h4>
+                <h5>{price * quantityValue}.00 MZN</h5>
+              </div>
+            )}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setShowOption(!showOption);
+              }}
+              className="button-quero p-4 rounded-lg"
+            >
+              Eu Quero
+            </button>
+          </div>
+        )
       )}
     </div>
   );

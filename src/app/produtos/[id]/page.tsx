@@ -20,6 +20,8 @@ export default async function ProductoPage({
     },
   });
 
+  console.log(produtoId?.ProductSize);
+
   // const produto = dados.find((item) => item.key.toString() === id);
   // //   console.log(produto);
   if (!produtoId) {
