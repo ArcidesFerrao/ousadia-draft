@@ -4,7 +4,6 @@ import { addSchema, updateSchema } from "@/schema/productSchema";
 import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-// import { redirect } from "next/navigation";
 
 
 export async function addProduct(prevState: unknown, formData: FormData) {
@@ -67,12 +66,12 @@ export async function addProduct(prevState: unknown, formData: FormData) {
 
   
   if ( submission.status === "success" ) {
-    
     return {
       status: "success",
       message: "Product created successfully"
     }
   }
+  
   redirect("/admin/products")
   
 } 
@@ -127,7 +126,6 @@ export async function updateProduct(prevState: unknown, formData: FormData ) {
   // return { success: true, updatedProduct}
   
   if ( submission.status === "success" ) {
-    
     return {
       status: "success",
       message: "Product Updated successfully"

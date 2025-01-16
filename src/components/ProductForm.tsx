@@ -8,6 +8,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { updateSchema } from "@/schema/productSchema";
 import { Product, ProductSize } from "@prisma/client";
 import { updateProduct } from "@/actions/products";
+import toast from "react-hot-toast";
 
 type Category = {
   id: number;
@@ -44,6 +45,9 @@ export default function ProductForm({
   };
 
   useEffect(() => {
+    if (state?.status === "success") {
+      toast.success(state.message);
+    }
     const getCategories = async () => {
       try {
         const res = await fetch("/api/categories");
