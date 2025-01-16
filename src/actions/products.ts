@@ -1,6 +1,6 @@
 "use server"
 import db from "@/db/db";
-import { addSchema } from "@/schema/productSchema";
+import { addSchema, updateSchema } from "@/schema/productSchema";
 import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -78,11 +78,11 @@ export async function addProduct(prevState: unknown, formData: FormData) {
 } 
 
 export async function updateProduct(prevState: unknown, formData: FormData ) {
-    const submission = parseWithZod(formData, { schema: addSchema });
+    const submission = parseWithZod(formData, { schema: updateSchema });
 
     if (submission.status !== "success") {
       return submission.error;
-    }
+    } else if (submission.status === "success") console.log(submission)
 
     const updatedProduct = await db.product.update({
         where: { id: submission.value.productId },
