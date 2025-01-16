@@ -4,9 +4,8 @@ import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import React, { useActionState, useEffect, useState } from "react";
 import { useForm } from "@conform-to/react";
-// import { useFormStatus } from "react-dom";
 import { parseWithZod } from "@conform-to/zod";
-import { addSchema } from "@/schema/productSchema";
+import { updateSchema } from "@/schema/productSchema";
 import { Product, ProductSize } from "@prisma/client";
 import { updateProduct } from "@/actions/products";
 
@@ -23,10 +22,7 @@ export default function ProductForm({
   product?: Product | null;
   productSize?: ProductSize[] | null;
 }) {
-  const [state, action, pending] = useActionState<undefined | Product>(
-    updateProduct,
-    product
-  );
+  const [state, action, pending] = useActionState(updateProduct, undefined);
   const [priceFormat, setPriceFormat] = useState<number | null>(
     product?.price || null
   );
@@ -36,7 +32,7 @@ export default function ProductForm({
 
   const [form, fields] = useForm({
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: addSchema });
+      return parseWithZod(formData, { schema: updateSchema });
     },
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
@@ -67,15 +63,21 @@ export default function ProductForm({
     setPriceFormat(value);
   };
 
+  console.log(pending);
   return (
     <div className="form-product flex flex-col">
       <form
         id={form.id}
-        // onSubmit={handleSubmit}
         onSubmit={form.onSubmit}
         action={action}
         className="flex flex-col gap-6 p-4 h-fit"
       >
+        <input
+          type="text"
+          defaultValue={product?.id}
+          id="productId"
+          name="productId"
+        />
         <div className="name-price flex gap-4">
           <div className="name  flex justify-between">
             <label htmlFor="name">Nome:</label>
@@ -153,8 +155,18 @@ export default function ProductForm({
             <div className="sizeInput flex gap-4">
               {productSize &&
                 ["s", "m", "l", "xl"].map((size) => {
-                  const sizeData = productSize.find((ps) => ps.size === size);
-                  const isZero = sizeData?.stock === 0;
+                  const sizeData = productSize.find(
+                    (ps) => ps.size === size
+                  ) || { size, stock: 0 };
+
+                  const sizeNameMap: Record<string, string> = {
+                    s: "small",
+                    m: "medium",
+                    l: "large",
+                    xl: "extralarge",
+                  };
+
+                  console.log("size data", size, sizeData?.stock);
                   return (
                     <label
                       key={size}
@@ -166,9 +178,8 @@ export default function ProductForm({
                         type="number"
                         min={0}
                         id={size.toLocaleLowerCase()}
-                        name={size.toLocaleLowerCase()}
-                        defaultValue={sizeData?.stock || 0}
-                        className={isZero ? "sizeZero" : ""}
+                        name={sizeNameMap[size]}
+                        defaultValue={Number(sizeData.stock)}
                       />
                     </label>
                   );
@@ -180,7 +191,11 @@ export default function ProductForm({
         <div className="imagesUpload flex justify-center">
           <div className="main-image-upload flex flex-col gap-4">
             <h3>Main Image</h3>
-            <input type="hidden" value={mainImage} name="imageUrl" />
+            <input
+              type="hidden"
+              defaultValue={product?.imageUrl}
+              name="imageUrl"
+            />
             {mainImage || product?.imageUrl ? (
               <Image
                 src={mainImage || product?.imageUrl || ""}
@@ -204,27 +219,65 @@ export default function ProductForm({
             )}
           </div>
         </div>
-        <SubmitButton pending={pending} />
+        <input
+          className={pending ? "sudmit-button" : ""}
+          type="submit"
+          name="submit"
+          id="submit"
+          value={pending ? "Updating..." : "Update"}
+          disabled={pending}
+        />
+        {/* <SubmitButton pending={pending} /> */}
       </form>
       {fields.name.errors && (
         <p className="errorsField">{fields.name.errors}</p>
       )}
+      {fields.category.errors && (
+        <p className="errorsField">{fields.category.errors}</p>
+      )}
       {fields.price.errors && (
         <p className="errorsField">{fields.price.errors}</p>
+      )}
+      {fields.brand.errors && (
+        <p className="errorsField">{fields.brand.errors}</p>
+      )}
+      {fields.color.errors && (
+        <p className="errorsField">{fields.color.errors}</p>
+      )}
+      {fields.imageUrl.errors && (
+        <p className="errorsField">{fields.imageUrl.errors}</p>
+      )}
+      {fields.backImageUrl.errors && (
+        <p className="errorsField">{fields.backImageUrl.errors}</p>
+      )}
+      {fields.description.errors && (
+        <p className="errorsField">{fields.description.errors}</p>
+      )}
+      {fields.small.errors && (
+        <p className="errorsField">{`small ${fields.small.errors}`}</p>
+      )}
+      {fields.medium.errors && (
+        <p className="errorsField">{`medium ${fields.medium.errors}`}</p>
+      )}
+      {fields.large.errors && (
+        <p className="errorsField">{`large ${fields.large.errors}`}</p>
+      )}
+      {fields.extralarge.errors && (
+        <p className="errorsField">{`extralarge ${fields.extralarge.errors}`}</p>
       )}
     </div>
   );
 }
 
-const SubmitButton = ({ pending }: { pending: boolean }) => {
-  return (
-    <input
-      className={pending ? "sudmit-button" : ""}
-      type="submit"
-      name="submit"
-      id="submit"
-      value={pending ? "Updating..." : "Update"}
-      disabled={pending}
-    />
-  );
-};
+// const SubmitButton = ({ pending }: { pending: boolean }) => {
+//   return (
+//     <input
+//       className={pending ? "sudmit-button" : ""}
+//       type="submit"
+//       name="submit"
+//       id="submit"
+//       value={pending ? "Updating..." : "Update"}
+//       disabled={pending}
+//     />
+//   );
+// };

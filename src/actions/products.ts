@@ -1,9 +1,7 @@
 "use server"
 import db from "@/db/db";
-// import { useTransition } from "react"
 import { addSchema } from "@/schema/productSchema";
 import { parseWithZod } from "@conform-to/zod";
-import { Product } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 // import { redirect } from "next/navigation";
@@ -72,58 +70,72 @@ export async function addProduct(prevState: unknown, formData: FormData) {
     
     return {
       status: "success",
-      message: "Post created successfully"
+      message: "Product created successfully"
     }
   }
   redirect("/admin/products")
   
 } 
 
-export async function updateProduct(prevState: Product | void, formData: FormData): Promise<void | Record<string, string[] | null>> {
-  const submission = parseWithZod(formData, { schema: addSchema });
+export async function updateProduct(prevState: unknown, formData: FormData ) {
+    const submission = parseWithZod(formData, { schema: addSchema });
 
-  if (submission.status === "success") {
-    const productId = prevState?.id || "";
+    if (submission.status !== "success") {
+      return submission.error;
+    }
 
-    await db.product.update({
-      where: { id: productId },
-      data: {
-        name: submission.value.name,
-        description: submission.value.description,
-        price: submission.value.price,
-        color: submission.value.color,
-        brand: submission.value.brand,
-        ProductSize: {
-          create: [
-            {
-              size: "s",
-              stock: submission.value.small,
-            },
-            {
-              size: "m",
-              stock: submission.value.medium,
-            },
-            {
-              size: "l",
-              stock: submission.value.large,
-            },
-            {
-              size: "xl",
-              stock: submission.value.extralarge,
-            },
-          ]
+    const updatedProduct = await db.product.update({
+        where: { id: submission.value.productId },
+        data: {
+          name: submission.value.name,
+          description: submission.value.description,
+          price: submission.value.price,
+          color: submission.value.color,
+          brand: submission.value.brand,
+          category: {
+            connect: { id: submission.value.category }
+          },
+  
+        }
+    });
+
+    const sizeUpdates = [
+      { size: "s", stock: submission.value.small },
+      { size: "m", stock: submission.value.medium },
+      { size: "l", stock: submission.value.large },
+      { size: "xl", stock: submission.value.extralarge },
+    ];
+
+    const updatedSizes = await Promise.all(
+      sizeUpdates.map(({ size, stock }) => db.productSize.updateMany({
+        where: {
+          productId: submission.value.productId,
+          size
         },
-        category: {
-          connect: { id: submission.value.category }
-        },
-
+        data: { stock }
       }
-    })
-  }
-
-  // if (submission.status !== "success") return submission.error
+    ))
+    ) 
     
-  console.log(submission)
+    if (!updatedProduct) return { success: false, errors: "problem with product data"}
+    if (!updatedSizes) return { success: false, errors: "problem with size data"}
+
+  console.log(updatedProduct, updatedSizes);
+  revalidatePath("/")
+  revalidatePath("/products")
+  
+  // return { success: true, updatedProduct}
+  
+  if ( submission.status === "success" ) {
+    
+    return {
+      status: "success",
+      message: "Product Updated successfully"
+    }
+  }
+  
+  redirect("/admin/products")
+
 }
 
 
