@@ -9,7 +9,7 @@ import {
 export default function ProductsAdminPage() {
   return (
     <main className="admin-products text-zinc-300">
-      <div className="products-header p-4 flex items-center justify-between w-full max-w-3xl">
+      <div className="products-header p-4 flex items-center justify-between w-full max-w-4xl">
         <h2>Lista de Productos</h2>
         <AddButton href="/admin/products/new" />
       </div>
@@ -50,16 +50,16 @@ const ProductsTable = async () => {
     <table className=" max-w-4xl w-full">
       <thead>
         <tr>
-          <th>Productos ({products.length})</th>
+          <th className="flex items-center gap-2">
+            Productos <p>({products.length})</p>
+          </th>
           <th>Cor</th>
           <th>Tamanho</th>
           <th>Stock</th>
-          <th>
+          <th className="flex items-center gap-1">
             Preco <p>(MZN)</p>
           </th>
-          <th>
-            Discount <p>(MZN)</p>
-          </th>
+          <th>Desconto</th>
           <th>
             <span className="sr-only">Edit</span>
           </th>
@@ -90,7 +90,12 @@ const ProductsTable = async () => {
               )}
             </td>
             <td>{product.price}.00</td>
-            <td>{product.discounted ? product.discountAmount : 0}.00</td>
+            <td>
+              {product.discountAmount
+                ? 100 * (1 - product.discountAmount / 100)
+                : 0}
+              .00
+            </td>
             <td>
               <EditItem id={product.id} />
             </td>
