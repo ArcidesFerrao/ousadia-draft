@@ -1,5 +1,4 @@
 import React from "react";
-// import dados from "@/app/assets/dados.json";
 import Image from "next/image";
 import { BuyButtonWithSize } from "@/components/BuyButton";
 import db from "@/db/db";
@@ -57,11 +56,13 @@ export default async function ProductoPage({
               <h4>Cor:</h4>
               <h4>{produtoId.color}</h4>
             </div>
-            <div className="buy-button flex items-center justify-center ">
+            <div className="buy-button flex items-center justify-center h-fit">
               <BuyButtonWithSize
                 productId={produtoId.id}
                 price={produtoId.price}
                 productSize={produtoId.ProductSize}
+                discounted={produtoId.discounted}
+                discountAmount={produtoId.discountAmount || 0}
               />
             </div>
           </div>

@@ -193,10 +193,14 @@ export const BuyButtonWithSize = ({
   productId,
   price,
   productSize,
+  discounted,
+  discountAmount,
 }: {
   productId: string;
   price: number;
   productSize: { id: string; size: string; stock: number }[];
+  discounted: boolean;
+  discountAmount?: number;
 }) => {
   const [showOption, setShowOption] = useState<boolean>(false);
   const [quantityValue, setQuantityValue] = useState<number>(1);
@@ -235,7 +239,7 @@ export const BuyButtonWithSize = ({
 
   return (
     <div className="w-full flex flex-col gap-4 ">
-      <div className="info-size flex justify-between gap-4">
+      <div className="info-size flex justify-between gap-4 h-fit">
         {!unavalilableProduct && <h4>Tamanho:</h4>}
 
         <div className="product-sizes flex gap-4">
@@ -277,7 +281,12 @@ export const BuyButtonWithSize = ({
           />
         </div>
       )}
-
+      {discounted && (
+        <div className="discounted flex justify-between">
+          <h4>Desconto:</h4>
+          <h5>{discountAmount}%</h5>
+        </div>
+      )}
       {showOption ? (
         <OptionButton
           productId={productId}
@@ -287,9 +296,18 @@ export const BuyButtonWithSize = ({
         />
       ) : (
         !unavalilableProduct && (
-          <div className="">
-            {quantityValue > 1 && (
-              <div className="total-price flex justify-between">
+          <div className="flex flex-col gap-4">
+            {discounted ? (
+              <div className="total-price flex justify-between text-gray-500">
+                <h4>Total a pagar:</h4>
+                {discountAmount ? (
+                  <h5>{price * (1 - discountAmount / 100) * quantityValue}</h5>
+                ) : (
+                  <h5>{price * quantityValue}.00 MZN</h5>
+                )}
+              </div>
+            ) : (
+              <div className="total-price flex justify-between text-gray-500">
                 <h4>Total a pagar:</h4>
                 <h5>{price * quantityValue}.00 MZN</h5>
               </div>
