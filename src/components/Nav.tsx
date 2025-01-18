@@ -9,7 +9,7 @@ import { AccountDropDown, CategoryDrop } from "./Menu";
 export default function Nav({ children }: { children: ReactNode }) {
   return (
     <nav>
-      <div className="navbar">{children}</div>
+      <div className="navbar z-50">{children}</div>
     </nav>
   );
 }

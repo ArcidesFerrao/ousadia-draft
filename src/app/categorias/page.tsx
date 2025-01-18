@@ -42,6 +42,7 @@ export default async function CategoriesPage() {
               name={product.name}
               price={product.price}
               imageUrl={product.imageUrl}
+              discounted={product.discounted}
             />
           ))}
         </div>

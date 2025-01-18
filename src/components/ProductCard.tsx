@@ -6,9 +6,14 @@ import Image from "next/image";
 export default function ProductCard({ ...props }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <div className="product-card flex flex-col my-4 overflow-hidden w-52">
+    <div className="product-card relative flex flex-col my-4 overflow-hidden w-52">
       <Link href={`/produtos/${props.id}`}>
-        <div className="product-image ">
+        <div className="product-image relative ">
+          {props.discounted && (
+            <div className="on-sale absolute top-4 py-1 px-2 bg-green-600 text-white text-xs font-bold">
+              <span>SALE</span>
+            </div>
+          )}
           <Image
             src={props.imageUrl}
             alt="Maningue Cenas"

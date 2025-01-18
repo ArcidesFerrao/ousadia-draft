@@ -42,6 +42,7 @@ export default async function ProdutosPage() {
                 name={producto.name}
                 price={producto.price}
                 imageUrl={producto.imageUrl}
+                discounted={producto.discounted}
               />
             ))}
         </div>
@@ -57,6 +58,7 @@ async function getProducts() {
       name: true,
       imageUrl: true,
       price: true,
+      discounted: true,
     },
   });
 

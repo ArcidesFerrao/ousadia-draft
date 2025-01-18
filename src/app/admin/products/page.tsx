@@ -13,7 +13,6 @@ export default function ProductsAdminPage() {
         <h2>Lista de Productos</h2>
         <AddButton href="/admin/products/new" />
       </div>
-
       <ProductsTable />
     </main>
   );
@@ -27,7 +26,6 @@ const ProductsTable = async () => {
       price: true,
       discounted: true,
       discountAmount: true,
-      // stock: true,
       color: true,
       ProductSize: {
         select: {
@@ -107,7 +105,8 @@ const ProductsTable = async () => {
             </td>
           </tr>
         ))}
-        {/* <tr>
+        {/* 
+        <tr>
           <td>Maningue Cenas</td>
           <td>Preta</td>
           <td>M</td>
@@ -115,7 +114,8 @@ const ProductsTable = async () => {
           <td>900.00</td>
           <td>/</td>
           <td>-</td>
-        </tr> */}
+        </tr> 
+        */}
       </tbody>
     </table>
   );
