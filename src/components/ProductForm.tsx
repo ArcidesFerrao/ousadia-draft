@@ -30,6 +30,7 @@ export default function ProductForm({
   const [categoriesL, setCategoriesL] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [mainImage, setMainImage] = useState<string>();
+  const [discount, setDiscount] = useState(false);
 
   const [form, fields] = useForm({
     onValidate({ formData }) {
@@ -42,6 +43,14 @@ export default function ProductForm({
   const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedCategory(event.target.value.toString());
     console.log(selectedCategory);
+  };
+
+  const handleDiscountCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setDiscount(true);
+    } else {
+      setDiscount(false);
+    }
   };
 
   useEffect(() => {
@@ -67,7 +76,7 @@ export default function ProductForm({
     setPriceFormat(value);
   };
 
-  console.log(pending);
+  // console.log(pending);
   return (
     <div className="form-product flex flex-col">
       <form
@@ -77,7 +86,7 @@ export default function ProductForm({
         className="flex flex-col gap-6 p-4 h-fit"
       >
         <input
-          type="text"
+          type="hidden"
           defaultValue={product?.id}
           id="productId"
           name="productId"
@@ -114,7 +123,7 @@ export default function ProductForm({
         </div>
 
         <div className="category flex justify-between">
-          <h3>Categoria:</h3>
+          <label>Categoria:</label>
           <div className="radio-category flex gap-2">
             {categoriesL.map((category) => (
               <label key={category.id} className="radio">
@@ -131,7 +140,24 @@ export default function ProductForm({
           </div>
         </div>
 
-        <div></div>
+        <div className="discount-section flex gap-12">
+          <div className="check-discount flex gap-4">
+            <input
+              type="checkbox"
+              name="discount"
+              id="discount"
+              onChange={handleDiscountCheck}
+              defaultChecked={product?.discounted}
+            />
+            <label htmlFor="discount">Discount</label>
+          </div>
+          {discount && (
+            <div className="discount-amount flex gap-4 ">
+              <label htmlFor="discountAmount">Discount Amount:</label>
+              <input type="number" name="discountAmount" id="discountAmount" />
+            </div>
+          )}
+        </div>
 
         <div className="bottom-section flex justify-between gap-8">
           <div className="left-section flex flex-col gap-4 justify-between">
@@ -170,7 +196,7 @@ export default function ProductForm({
                     xl: "extralarge",
                   };
 
-                  console.log("size data", size, sizeData?.stock);
+                  // console.log("size data", size, sizeData?.stock);
                   return (
                     <label
                       key={size}

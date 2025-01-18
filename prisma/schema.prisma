@@ -23,17 +23,21 @@ model User {
 }
 
 model Product {
-  id          String    @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   description String?
   color       String
   brand       String
   price       Float
-  imageUrl    String // main image for quick display
-  category    Category? @relation(fields: [categoryId], references: [id])
-  categoryId  Int?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+
+  discounted     Boolean @default(false)
+  discountAmount Float?
+
+  imageUrl   String // main image for quick display
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   images      ProductImage[] // Relationship with ProductImage
   Order       Order[]
