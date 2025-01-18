@@ -35,7 +35,8 @@ export const updateSchema = z.object({
     large: z.coerce.number().int().min(0),
     extralarge: z.coerce.number().int().min(0),
     price: z.coerce.number().int().min(1),
+    discounted: z.boolean().default(false),
+    discountAmount: z.coerce.number().int().optional(),
     imageUrl: z.string().url(),
     backImageUrl: z.string().url().optional(),
-
 })

@@ -144,8 +144,8 @@ export default function ProductForm({
           <div className="check-discount flex gap-4">
             <input
               type="checkbox"
-              name="discount"
-              id="discount"
+              name="discounted"
+              id="discounted"
               onChange={handleDiscountCheck}
               defaultChecked={product?.discounted}
             />
@@ -154,7 +154,15 @@ export default function ProductForm({
           {discount && (
             <div className="discount-amount flex gap-4 ">
               <label htmlFor="discountAmount">Discount Amount:</label>
-              <input type="number" name="discountAmount" id="discountAmount" />
+              <input
+                type="number"
+                name="discountAmount"
+                id="discountAmount"
+                defaultValue={product?.discountAmount || "0"}
+                min={0}
+                max={90}
+                required={discount}
+              />
             </div>
           )}
         </div>
@@ -286,6 +294,12 @@ export default function ProductForm({
       )}
       {fields.extralarge.errors && (
         <p className="errorsField">{`extralarge ${fields.extralarge.errors}`}</p>
+      )}
+      {fields.discountAmount.errors && (
+        <p className="errorsField">{`discountAmount ${fields.discountAmount.errors}`}</p>
+      )}
+      {fields.discounted.errors && (
+        <p className="errorsField">{`discounted ${fields.discounted.errors}`}</p>
       )}
     </div>
   );

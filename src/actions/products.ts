@@ -89,6 +89,8 @@ export async function updateProduct(prevState: unknown, formData: FormData ) {
           name: submission.value.name,
           description: submission.value.description,
           price: submission.value.price,
+          discounted: submission.value.discounted,
+          discountAmount: submission.value.discounted ? submission.value.discountAmount : 0,
           color: submission.value.color,
           brand: submission.value.brand,
           category: {
