@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import { NavBar } from "@/components/Nav";
 import { Toaster } from "react-hot-toast";
+import { SessionProvider } from "next-auth/react";
 // import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${ubuntu.className} antialiased`}>
-        <NavBar />
-        {/* <Breadcrumbs withHome> */}
-        <Toaster position="top-center" />
-        {children}
-        {/* </Breadcrumbs> */}
-        <Footer />
+        <SessionProvider>
+          <NavBar />
+          {/* <Breadcrumbs withHome> */}
+          <Toaster position="top-center" />
+          {children}
+          {/* </Breadcrumbs> */}
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );
