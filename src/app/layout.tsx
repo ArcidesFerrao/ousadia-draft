@@ -4,7 +4,8 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import { NavBar } from "@/components/Nav";
 import { Toaster } from "react-hot-toast";
-import { SessionProvider } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import Providers from "./providers";
 // import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -17,22 +18,23 @@ const ubuntu = Ubuntu({
   weight: ["300", "400", "500", "700"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getSession();
   return (
     <html lang="en">
       <body className={`${ubuntu.className} antialiased`}>
-        <SessionProvider>
+        <Providers session={session}>
           <NavBar />
           {/* <Breadcrumbs withHome> */}
           <Toaster position="top-center" />
           {children}
           {/* </Breadcrumbs> */}
           <Footer />
-        </SessionProvider>
+        </Providers>
       </body>
     </html>
   );

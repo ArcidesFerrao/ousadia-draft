@@ -4,11 +4,12 @@ import { NavLink } from "./Nav";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { updateStatus } from "@/actions/orders";
+import { useSession } from "next-auth/react";
 
 export const AccountDropDown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const { data: session } = useSession();
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -27,6 +28,7 @@ export const AccountDropDown = () => {
 
   return (
     <div className="nav-account" ref={dropdownRef}>
+      {session ? <p>online</p> : <p>offline</p>}
       <button onClick={() => setIsDropdownOpen((prev) => !prev)}>
         <Image
           alt="account"
