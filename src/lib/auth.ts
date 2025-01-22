@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
+import db from "@/db/db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { AuthOptions } from "next-auth";
 import Google from "next-auth/providers/google";
@@ -6,10 +7,10 @@ import Google from "next-auth/providers/google";
 
 
 
-const prisma = new PrismaClient;
+// const prisma = new PrismaClient;
 
 export const authOptions = {
-    adapter: PrismaAdapter(prisma),
+    adapter: PrismaAdapter(db),
     providers: [
 
         Google({
@@ -26,40 +27,46 @@ export const authOptions = {
             } 
             return token;
         },
-        async signIn({ user, account, profile}){
+        async signIn({ user, account}){
             if (account?.provider === "google") {
-                const existingAccount = await prisma.account.findUnique({
+                const existingAccount = await db.account.findUnique({
                     where: {
-                        provider_providerAccountId: {
-                            provider: account.provider,
+                        providerId_providerAccountId: {
+                            providerId: account.provider,
                             providerAccountId: account.providerAccountId,
                         }
                     },
                 });
                 if (!existingAccount) {
-                    const existingUser = await prisma.user.findUnique({
+                    const existingUser = await db.user.findUnique({
                         where: {
                             email: user.email || "",
                         }
                     })
 
                     if (existingUser) {
-                        await prisma.account.create({
+                        await db.account.create({
                             data: {
                                 userId: existingUser.id,
-                                provider: account.provider,
+                                providerId: account.provider,
+                                providerType: account.provider,
                                 providerAccountId: account.providerAccountId,
-                                access_token: account.access_token,
+                                accessToken: account.access_token ?? null,
                             },
                         });
                     } else {
-                        const newUser = await prisma.user.create({
-                            data: {
-                                email: user.email,
-                                name: user.name,
-                                image: user.image,
-                            }
-                        });
+                        if (user) {
+
+                            const newUser = await db.user.create({
+                                data: {
+                                    email: user.email,
+                                    name: user.name,
+                                    image: user.image,
+                                }
+                            });
+
+                            console.log(newUser)
+                        }
                     }
                 } 
             }
@@ -68,16 +75,18 @@ export const authOptions = {
         },
         async session({session, token}) {
             if (token) {
-                session.user?.email = token.email ?? null;
-                session.user.accessToken = (token.accessToken as string | undefined) ?? null;
+                session.user = session.user || {}
+                session.user.email = token.email ?? null;
+                // session.user.access_token = token.accessToken ?? null;
             }
             return session;
         },
         async redirect({url, baseUrl}) {
-            if (url === "/api/auth/callback/github") {
-                return baseUrl
-            }
-            return url;
+            // if (url === "/api/auth/callback/github") {
+            //     return baseUrl
+            // }
+            // return url;
+            return url.startsWith(baseUrl) ? url : baseUrl;
         }
     },
     pages: {
