@@ -4,7 +4,7 @@ import { NavLink } from "./Nav";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { updateStatus } from "@/actions/orders";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 export const AccountDropDown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -28,23 +28,38 @@ export const AccountDropDown = () => {
 
   return (
     <div className="nav-account" ref={dropdownRef}>
-      {session ? <p>online</p> : <p>offline</p>}
-      <button onClick={() => setIsDropdownOpen((prev) => !prev)}>
-        <Image
-          alt="account"
-          src="/assets/lineaccount.png"
-          width={24}
-          height={24}
-        />
-      </button>
+      {session ? (
+        <p>online</p>
+      ) : (
+        <button onClick={() => setIsDropdownOpen((prev) => !prev)}>
+          <Image
+            alt="account"
+            src="/assets/lineaccount.png"
+            width={24}
+            height={24}
+          />
+        </button>
+      )}
+
       {isDropdownOpen && (
         <div
           className={`nav-dropdown-menu absolute top-full right-0 mt-2 rounded shadow-lg flex flex-col w-fit ${
             isDropdownOpen ? "show" : "hide"
           }`}
         >
-          <NavLink href="/">Sign In</NavLink>
-          <NavLink href="/">Sign Up</NavLink>
+          <button
+            onClick={async () => {
+              try {
+                signIn("google");
+              } catch (error) {
+                console.log("Sign in failed: ", error);
+              }
+            }}
+          >
+            SignIn
+          </button>
+          {/* <NavLink href="/">Sign In</NavLink>
+          <NavLink href="/">Sign Up</NavLink> */}
         </div>
       )}
     </div>

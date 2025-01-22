@@ -28,11 +28,11 @@ export const authOptions = {
             return token;
         },
         async signIn({ user, account}){
-            if (account?.provider === "google") {
+            if (account?.provider === "google" ) {
                 const existingAccount = await db.account.findUnique({
                     where: {
-                        providerId_providerAccountId: {
-                            providerId: account.provider,
+                        provider_providerAccountId: {
+                            provider: account.provider,
                             providerAccountId: account.providerAccountId,
                         }
                     },
