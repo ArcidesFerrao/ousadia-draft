@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { updateStatus } from "@/actions/orders";
 import { signIn, useSession } from "next-auth/react";
+// import toast from "react-hot-toast";
 
 export const AccountDropDown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -28,8 +29,8 @@ export const AccountDropDown = () => {
 
   return (
     <div className="nav-account" ref={dropdownRef}>
-      {session ? (
-        <p>online</p>
+      {session?.user ? (
+        <p className="text-gray-300">online</p>
       ) : (
         <button onClick={() => setIsDropdownOpen((prev) => !prev)}>
           <Image
@@ -50,7 +51,16 @@ export const AccountDropDown = () => {
           <button
             onClick={async () => {
               try {
-                signIn("google");
+                const result = await signIn("google", { redirect: false });
+                console.log("Sign in result", result);
+                // if (result?.ok) {
+                //   toast.success("Login successfull", {
+                //     position: "top-right",
+                //     duration: 3000,
+                //   });
+                // } else {
+                //   toast.error("Login failed");
+                // }
               } catch (error) {
                 console.log("Sign in failed: ", error);
               }
