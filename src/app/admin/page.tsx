@@ -74,27 +74,6 @@ export default async function AdminPage() {
     getMostSales(),
   ]);
 
-  // const dados = [
-  //   {
-  //     id: 1,
-  //     name: "Maningue Cenas",
-  //     price: "900,00",
-  //     image: "/assets/mng.jpg",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Love",
-  //     price: "800,00",
-  //     image: "/assets/lv.jpg",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Nhenhentsar",
-  //     price: "750,00",
-  //     image: "/assets/nhenhe.jpg",
-  //   },
-  // ];
-
   return (
     <main className="admin-main ">
       <header>

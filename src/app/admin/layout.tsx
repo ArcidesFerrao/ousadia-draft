@@ -18,11 +18,11 @@ export default function AdminLayout({
           </NavLink>
           <NavLink href="/admin">Dashboard</NavLink>
         </div>
-
         <div className="admin-links flex items-center">
           <NavLink href="/admin/products">Produtos</NavLink>
           <NavLink href="/admin/orders">Pedidos</NavLink>
           <NavLink href="/admin/reports">Relatorios</NavLink>
+          <NavLink href="/admin/clients">Clientes</NavLink>
         </div>
       </Nav>
       {children}
