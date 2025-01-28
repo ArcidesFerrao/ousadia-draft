@@ -1,7 +1,9 @@
 "use server"
 import db from "@/db/db";
+import { authOptions } from "@/lib/auth";
 import { addSchema, updateSchema } from "@/schema/productSchema";
 import { parseWithZod } from "@conform-to/zod";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -147,17 +149,16 @@ export async function deleteProduct(id: string) {
   if (product == null) return "product not found"
 
   console.log(productImage, productSize)
-  
 
   revalidatePath("/")
   revalidatePath("/products")
-
-
 
 }
 
 
 export async function buyProduct(id: string, value: number, productSize: string) {
+  const session = await getServerSession(authOptions);
+  
   const producto = await db.product.findUnique({
     where: { id },
     select: {
@@ -187,15 +188,35 @@ export async function buyProduct(id: string, value: number, productSize: string)
 
   if (!size) return "inexistent size";
 
-  const pedido = await db.order.create({
-    data: {
-      productId: id,
-      price: producto?.price,
-      quantity: value,
-      totalPrice: producto.price * value,
-      productSizeId: size.id,
-    }
-  })
+  if (session) {
+
+    const userId = session.user.id;
+    const pedido = await db.order.create({
+      data: {
+        productId: id,
+        price: producto?.price,
+        quantity: value,
+        totalPrice: producto.price * value,
+        productSizeId: size.id,
+        userId,
+      }
+    })
+  console.log(pedido)
+
+  } else {
+
+    const pedido = await db.order.create({
+      data: {
+        productId: id,
+        price: producto?.price,
+        quantity: value,
+        totalPrice: producto.price * value,
+        productSizeId: size.id,
+      }
+    })
+  console.log(pedido)
+
+  }
 
   const buying = await db.product.update({
     where: { id },
@@ -216,7 +237,7 @@ export async function buyProduct(id: string, value: number, productSize: string)
     }
   })
 
-  console.log(pedido, buying)
+  console.log( buying)
   revalidatePath("/")
   revalidatePath("/produtos")
   revalidatePath("/admin/products")

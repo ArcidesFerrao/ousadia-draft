@@ -122,6 +122,7 @@ export default async function AdminPage() {
           title="Clientes"
           subtitle={usersData._count.toLocaleString()}
           iconUrl={chart.src}
+          pageUrl="/admin/clients"
         />
       </DashBoardOverview>
       <DashboardCardMost>

@@ -97,17 +97,6 @@ export const authOptions = {
             }
             return true;
         },
-        
-        // async redirect({url, baseUrl}) {
-        //     if (url.startsWith(baseUrl)) {
-        //         toast.success("Login successfull", {
-        //             position: "top-right",
-        //             duration: 3000,
-        //         });
-        //         return url
-        //     }
-        //     return  baseUrl;
-        // }
     },
     pages: {
         signIn: "/api/auth/signin",
@@ -115,7 +104,7 @@ export const authOptions = {
     },
     session: {
         strategy: "database",
-        maxAge: 60 * 60
+        maxAge: 24 * 60 * 60,
     },
     secret: process.env.NEXTAUTH_SECRET,
     debug: true
