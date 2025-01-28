@@ -4,11 +4,12 @@ import { NavLink } from "./Nav";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { updateStatus } from "@/actions/orders";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 // import toast from "react-hot-toast";
 
 export const AccountDropDown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [signOutDrop, setSignOutDrop] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
   useEffect(() => {
@@ -30,7 +31,9 @@ export const AccountDropDown = () => {
   return (
     <div className="nav-account" ref={dropdownRef}>
       {session?.user ? (
-        <p className="text-gray-300">online</p>
+        <button onClick={() => setSignOutDrop((prev) => !prev)}>
+          {session.user.name?.split(" ", 1)}
+        </button>
       ) : (
         <button onClick={() => setIsDropdownOpen((prev) => !prev)}>
           <Image
@@ -40,6 +43,26 @@ export const AccountDropDown = () => {
             height={24}
           />
         </button>
+      )}
+
+      {signOutDrop && (
+        <div
+          className={`nav-dropdown-menu absolute top-full right-0 mt-2 rounded shadow-lg flex flex-col w-fit ${
+            signOutDrop ? "show" : "hide"
+          }`}
+        >
+          <button
+            onClick={async () => {
+              try {
+                await signOut();
+              } catch (error) {
+                console.log("Sign out failed: ", error);
+              }
+            }}
+          >
+            SignOut
+          </button>
+        </div>
       )}
 
       {isDropdownOpen && (
@@ -68,8 +91,6 @@ export const AccountDropDown = () => {
           >
             SignIn
           </button>
-          {/* <NavLink href="/">Sign In</NavLink>
-          <NavLink href="/">Sign Up</NavLink> */}
         </div>
       )}
     </div>

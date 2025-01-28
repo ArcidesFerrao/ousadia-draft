@@ -4,8 +4,9 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import { NavBar } from "@/components/Nav";
 import { Toaster } from "react-hot-toast";
-import { getSession } from "next-auth/react";
 import Providers from "./providers";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 // import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getSession();
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className={`${ubuntu.className} antialiased`}>

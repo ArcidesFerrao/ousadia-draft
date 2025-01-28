@@ -18,7 +18,7 @@ export const authOptions = {
             if (user) {
                 session.user = {
                     ...session.user,
-                    // id: user.id,
+                    id: user.id,
                     name: user.name,
                     email: user.email,
                     image: user.image,
@@ -26,13 +26,11 @@ export const authOptions = {
             } else if (token) {
                 session.user ={ 
                     ...session.user,
-                    // id: token.sub as string,
+                    id: token.sub as string,
                     name: token.name,
                     email: token.email,                
-                    // image: token.image,
                 };
             }
-            console.log(session.user?.name);
             return session;
         },
         async jwt({ token, user}) {
