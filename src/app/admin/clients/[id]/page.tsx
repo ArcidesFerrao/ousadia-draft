@@ -33,7 +33,7 @@ export default async function UserPage({
         <div className="flex gap-4">
           <Image
             className="rounded-full"
-            src={user.image}
+            src={user.image || "/assets/line-md--account.png"}
             alt="avatar"
             width={48}
             height={48}
