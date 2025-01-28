@@ -21,13 +21,13 @@ async function getOrdersData() {
   };
 }
 
-// async function getUsersData() {
-//   const userCount = await db.user.aggregate({
-//     _count: true,
-//   });
+async function getUsersData() {
+  const userCount = await db.user.aggregate({
+    _count: true,
+  });
 
-//   return userCount;
-// }
+  return userCount;
+}
 
 async function getProductsData() {
   const productsCount = await db.product.count();
@@ -67,9 +67,9 @@ async function getMostSales() {
 }
 
 export default async function AdminPage() {
-  const [ordersData, productsData, salesData] = await Promise.all([
+  const [ordersData, usersData, productsData, salesData] = await Promise.all([
     getOrdersData(),
-    // getUsersData(),
+    getUsersData(),
     getProductsData(),
     getMostSales(),
   ]);
@@ -118,7 +118,11 @@ export default async function AdminPage() {
           iconUrl={bag.src}
           pageUrl="/admin/orders"
         />
-        <DashboardCard title="Clientes" subtitle="12" iconUrl={chart.src} />
+        <DashboardCard
+          title="Clientes"
+          subtitle={usersData._count.toLocaleString()}
+          iconUrl={chart.src}
+        />
       </DashBoardOverview>
       <DashboardCardMost>
         {salesData.map((produto, index) => (
