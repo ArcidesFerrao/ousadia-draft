@@ -2,10 +2,15 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export const PromoBar = () =>
   // { message, link }
   {
+    const pathname = usePathname();
+
+    if (pathname.startsWith("/admin")) return null;
+
     return (
       <motion.div
         className="px-3 w-full flex max-w-96 justify-center"
