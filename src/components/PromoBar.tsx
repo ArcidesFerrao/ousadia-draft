@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
 
 export const PromoBar = () =>
   // { message, link }
   {
-    const [isVisible, setIsVisible] = useState(true);
-
-    if (!isVisible) return null;
     return (
-      <div>
+      <motion.div
+        className="px-3 w-full flex max-w-96 justify-center"
+        initial={{ x: "100%" }}
+        animate={{ x: "-100%" }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      >
         {/* <a href={link}>
             {message}
         </a> */}
         Get 10% off...
-        <button onClick={() => setIsVisible(false)}>X</button>
-      </div>
+      </motion.div>
     );
   };
