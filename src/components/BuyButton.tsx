@@ -1,5 +1,6 @@
 "use client";
 
+import payProduct from "@/actions/payment";
 import { buyProduct } from "@/actions/products";
 import Image from "next/image";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
@@ -19,12 +20,17 @@ const OptionButton = ({
   const [visa, setVisa] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
-  const handleBuy = () => {
+  const handleBuy = async () => {
     if (phoneNumber === "841234567") {
       buyProduct(productId, value, productSize);
       toast.success("Success");
-    } else {
-      toast.error("Error");
+    }
+
+    try {
+      await payProduct();
+    } catch (error) {
+      console.error(error);
+      console.log("An error occurred");
     }
   };
 
