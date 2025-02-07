@@ -243,3 +243,19 @@ export async function buyProduct(id: string, value: number, productSize: string)
   revalidatePath("/admin/products")
   redirect(`/produtos/${id}`)
 }
+
+
+export async function getFirstPromo() {
+  const promo = await db.product.findFirst({
+    where: {
+      discounted: true
+    },
+    select: {
+      id: true,
+      name: true,
+      discountAmount: true,
+    }
+  })
+
+  return promo;
+}

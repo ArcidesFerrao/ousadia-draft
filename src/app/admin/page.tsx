@@ -67,13 +67,30 @@ async function getMostSales() {
   return resultData;
 }
 
+async function getDiscounted() {
+  const discountedData = await db.product.findMany({
+    where: {
+      discounted: true,
+    },
+    select: {
+      id: true,
+      name: true,
+      discountAmount: true,
+    },
+  });
+
+  return discountedData;
+}
+
 export default async function AdminPage() {
-  const [ordersData, usersData, productsData, salesData] = await Promise.all([
-    getOrdersData(),
-    getUsersData(),
-    getProductsData(),
-    getMostSales(),
-  ]);
+  const [ordersData, usersData, productsData, salesData, discountedData] =
+    await Promise.all([
+      getOrdersData(),
+      getUsersData(),
+      getProductsData(),
+      getMostSales(),
+      getDiscounted(),
+    ]);
 
   return (
     <main className="admin-main ">
@@ -116,7 +133,7 @@ export default async function AdminPage() {
           />
         ))}
       </DashboardCardMost>
-      <ProductPromo />
+      <ProductPromo data={discountedData} />
     </main>
   );
 }

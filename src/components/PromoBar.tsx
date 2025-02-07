@@ -3,8 +3,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { NavLink } from "./Nav";
 
-export const PromoBar = () =>
+export const PromoBar = ({
+  id,
+  name,
+  discountAmount,
+}: {
+  id: string;
+  name: string;
+  discountAmount: number | null;
+}) =>
   // { message, link }
   {
     const pathname = usePathname();
@@ -21,7 +30,10 @@ export const PromoBar = () =>
         {/* <a href={link}>
             {message}
         </a> */}
-        Get 10% off...
+        <span>
+          {discountAmount}% de disconto -{" "}
+          <NavLink href={`/produtos/${id}`}>&quot;{name}&quot;</NavLink>
+        </span>
       </motion.div>
     );
   };
