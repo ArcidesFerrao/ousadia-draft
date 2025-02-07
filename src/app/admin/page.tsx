@@ -8,6 +8,7 @@ import cart from "@/app/assets/shopping-cart.png";
 import chart from "@/app/assets/chart-histogram.png";
 import bag from "@/app/assets/mall-bag.png";
 import db from "@/db/db";
+import ProductPromo from "./_components/ProductPromo";
 
 async function getOrdersData() {
   const data = await db.order.aggregate({
@@ -115,6 +116,7 @@ export default async function AdminPage() {
           />
         ))}
       </DashboardCardMost>
+      <ProductPromo />
     </main>
   );
 }
