@@ -1,5 +1,5 @@
 
-export default async function payProduct() {
+export default async function payProduct(phoneNumber: string) {
     // console.log("ENV" ,process.env.NEXT_PUBLIC_MOZPAYMENT_ID)
     const response = await fetch('/api/payment', {
     method: "POST",
@@ -8,7 +8,7 @@ export default async function payProduct() {
     },
     body: JSON.stringify({
         carteira: process.env.NEXT_PUBLIC_MOZPAYMENT_ID,
-        numero: 852740554,
+        numero: phoneNumber,
         quem_comprou: "Guest",
         valor: 10,
     }),

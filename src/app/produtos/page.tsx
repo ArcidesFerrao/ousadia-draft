@@ -1,5 +1,5 @@
 import ProductCard from "@/components/ProductCard";
-import dados from "@/app/assets/dados.json";
+// import dados from "@/app/assets/dados.json";
 import db from "@/db/db";
 
 export default async function ProdutosPage() {
@@ -11,7 +11,7 @@ export default async function ProdutosPage() {
 
   return (
     <main className="py-4">
-      <div className="best-products">
+      {/* <div className="best-products">
         <div className="title">
           <h2>Mais Vendidos</h2>
         </div>
@@ -27,10 +27,10 @@ export default async function ProdutosPage() {
               />
             ))}
         </div>
-      </div>
+      </div> */}
       <div className="new-products">
         <div className="title">
-          <h2>Lancamentos</h2>
+          <h2>Lançamentos</h2>
         </div>
         {/* <div className="products-list flex flex-auto justify-between"> */}
         <div className="products-list grid grid-cols-4 justify-between items-center justify-items-center ">

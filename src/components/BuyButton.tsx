@@ -27,7 +27,7 @@ const OptionButton = ({
     }
 
     try {
-      await payProduct();
+      await payProduct(phoneNumber);
     } catch (error) {
       console.error(error);
       console.log("An error occurred");

@@ -31,7 +31,7 @@ export const PromoBar = ({
             {message}
         </a> */}
         <span>
-          {discountAmount}% de disconto -{" "}
+          {discountAmount}% de desconto -{" "}
           <NavLink href={`/produtos/${id}`}>&quot;{name}&quot;</NavLink>
         </span>
       </motion.div>
