@@ -127,7 +127,7 @@ export default function BuyButton({
     setSelectedSize(e.target.value);
   };
   return (
-    <div className="w-full flex flex-col gap-4 ">
+    <div className="buy-button w-full flex flex-col gap-4 ">
       <div className="info-size flex justify-between">
         <h4>Tamanho:</h4>
 
@@ -244,7 +244,7 @@ export const BuyButtonWithSize = ({
   };
 
   return (
-    <div className="w-full flex flex-col gap-4 ">
+    <div className="buy-with-size w-full flex flex-col gap-4 ">
       <div className="info-size flex justify-between gap-4 h-fit">
         {!unavalilableProduct && <h4>Tamanho:</h4>}
 
