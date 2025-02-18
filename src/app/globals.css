@@ -670,6 +670,9 @@ table thead tr th {
   .wide-screen-nav {
     display: none;
   }
+  .footer-creator {
+    display: none;
+  }
 }
 
 @keyframes slideDown {

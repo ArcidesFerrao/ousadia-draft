@@ -58,12 +58,16 @@ export default function Footer() {
           </div>
           <div className="footer-rights flex justify-between p-2">
             <p>© 2024 - Todos direitos reservados</p>
-            <p>
+            <p className="footer-creator">
               Criado por:{` `}
-              <NavLink href="https://portfolio-arcidesferraos-projects.vercel.app/">
+              <a
+                href="https://portfolio-arcidesferraos-projects.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {" "}
                 Arcides Ferrao
-              </NavLink>
+              </a>
             </p>
           </div>
         </section>
