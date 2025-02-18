@@ -42,6 +42,9 @@ export const NavBar = () => {
           <button onClick={toggleMenu}>|||</button>
           {isMenuOpen && (
             <div className="mobile-nav-links flex flex-col absolute  gap-4">
+              <div className="home">
+                <NavLink href="/">Home</NavLink>
+              </div>
               <div className="produtos">
                 <NavLink href="/produtos">Produtos</NavLink>
               </div>

@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 
 export const BuySection = ({
   //   productId,
+  imageUrl,
   price,
   productSize,
   discounted,
   discountAmount,
 }: {
   //   productId: string;
+
+  imageUrl: string;
   price: number;
   productSize: { id: string; size: string; stock: number }[];
   discounted: boolean;
@@ -120,9 +123,9 @@ export const BuySection = ({
             onClick={(e) => {
               e.preventDefault();
               //   setShowOption(!showOption);
-              const phoneN = "258852740554";
+              const phoneN = "258845398661";
               const message = encodeURIComponent("I want this t-shirt");
-              const whatsappUrl = `https://wa.me/${phoneN}?text=${message}`;
+              const whatsappUrl = `https://wa.me/${phoneN}?text=${message}%0A${imageUrl}`;
 
               window.open(whatsappUrl, "_blank");
             }}

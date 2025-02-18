@@ -38,7 +38,8 @@ export default function Home() {
           <h2>Mais Vendidos</h2>
           <Link href="/produtos">Ver mais</Link>
         </div>
-        <div className="products-list flex flex-auto justify-between">
+        {/* <div className="products-list flex flex-auto justify-between"> */}
+        <div className="products-list grid grid-cols-4 justify-between items-center justify-items-center">
           {dados &&
             dados.map((producto) => (
               <ProductCard
