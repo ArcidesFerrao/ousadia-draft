@@ -60,6 +60,7 @@ export default async function ProductoPage({
             <div className="buy-button flex items-center justify-center h-fit">
               <BuySection
                 // productId={produtoId.id}
+                name={produtoId?.name}
                 imageUrl={produtoId.imageUrl}
                 price={produtoId.price}
                 productSize={produtoId.ProductSize}

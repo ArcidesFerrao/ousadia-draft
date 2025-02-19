@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 export const BuySection = ({
   //   productId,
+  name,
   imageUrl,
   price,
   productSize,
@@ -10,7 +11,7 @@ export const BuySection = ({
   discountAmount,
 }: {
   //   productId: string;
-
+  name: string;
   imageUrl: string;
   price: number;
   productSize: { id: string; size: string; stock: number }[];
@@ -124,7 +125,9 @@ export const BuySection = ({
               e.preventDefault();
               //   setShowOption(!showOption);
               const phoneN = "258845398661";
-              const message = encodeURIComponent("I want this t-shirt");
+              const message = encodeURIComponent(
+                `Eu quero ${quantityValue} ${name} no tamanho ${selectedSize?.size.toLocaleUpperCase()}`
+              );
               const whatsappUrl = `https://wa.me/${phoneN}?text=${message}%0A${imageUrl}`;
 
               window.open(whatsappUrl, "_blank");
