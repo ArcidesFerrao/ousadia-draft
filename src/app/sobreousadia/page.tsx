@@ -4,11 +4,11 @@ import Image from "next/image";
 export default function AboutPage() {
   return (
     <main className="about-page items-center">
-      <div className="header py-4">
+      <div className="header py-4 gap-4 flex flex-col">
         <div className="about-header-title p-4">
           <h2>Quem somos</h2>
         </div>
-        <div className="about-header-details mx-4 flex flex-col gap-4">
+        <div className="about-header-details mx-4 flex flex-col gap-8">
           <div className="us-details">
             <p className="us-text text-lg font-thin">
               Ousadia® é uma marca moçambicana de vestuário criada em 2021 que
@@ -24,7 +24,7 @@ export default function AboutPage() {
               “pátria bela dos que ousaram lutar…”.
             </p>
           </div>
-          <div className="collab-details">
+          <div className="collab-details ">
             <p className="about-collection text-lg font-thin">
               A marca orgulha-se pelo trabalho feito em duas coleções lançadas,
               e uma Collab no período 2021 - 2023. Actualmente possui um leque
