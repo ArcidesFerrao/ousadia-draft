@@ -630,6 +630,7 @@ table thead tr th {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+  .list-title,
   .title {
     padding: 0 1rem;
   }
@@ -651,7 +652,7 @@ table thead tr th {
 }
 @media (max-width: 700px) {
   .products-list {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
@@ -733,4 +734,69 @@ table thead tr th {
 
 .nav-dropdown-menu.hide {
   animation: dropdownSlideUp 0.5s forwards;
+}
+
+.us-details {
+  display: grid;
+  grid-template-areas: "who .";
+  grid-template-columns: 80% 20%;
+}
+
+.foundation-details {
+  display: grid;
+  grid-template-areas: ". us";
+  grid-template-columns: 20% 80%;
+}
+
+.us-text {
+  grid-area: who;
+  background: var(--light-grey);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.foundation-details p {
+  grid-area: us;
+  color: var(--light-grey);
+  background: var(--admin-card-hover);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.collab-details {
+  color: var(--light-grey);
+  background: var(--dark-grey);
+  padding: 2rem;
+  border-radius: 1rem;
+  display: grid;
+  row-gap: 1rem;
+  grid-template-areas:
+    "coll ."
+    "collab .";
+  grid-template-columns: 80% 20%;
+}
+
+.about-collection {
+  grid-area: coll;
+}
+
+.about-collab {
+  grid-area: collab;
+}
+
+.production-details {
+  display: grid;
+  grid-template-areas: "who .";
+  grid-template-columns: 80% 20%;
+  color: var(--light-grey);
+  background: var(--admin-card-hover);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.about-contact-details {
+  width: max-content;
+  background: var(--light-grey);
+  padding: 2rem;
+  border-radius: 1rem;
 }

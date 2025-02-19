@@ -11,7 +11,7 @@ async function getProducts() {
 
 export default async function CategoriesPage() {
   const products = await getProducts();
-  console.log(products.length);
+  // console.log(products.length);
 
   const groupedProducts = products.reduce<
     Record<number | "uncategorized", Product[]>
@@ -26,15 +26,17 @@ export default async function CategoriesPage() {
     },
     { uncategorized: [] }
   );
-  console.log(groupedProducts);
+  // console.log(groupedProducts);
 
   return (
     <main className="py-4">
       <div className="shirts-list">
         <div className="title">
-          <h2>Shetas</h2>
+          <h2 className="flex items-center gap-2">
+            Shetas <p className="text-lg">({products.length})</p>
+          </h2>
         </div>
-        <div className="products-list flex flex-auto justify-between">
+        <div className="products-list grid grid-cols-4 justify-between">
           {groupedProducts[2]?.map((product) => (
             <ProductCard
               key={product.id}
@@ -51,7 +53,7 @@ export default async function CategoriesPage() {
         <div className="title">
           <h2>Bonés</h2>
         </div>
-        <div className="products-list flex flex-auto justify-between">
+        <div className="products-list grid grid-cols-4 justify-between">
           {groupedProducts[3]?.map((product) => (
             <ProductCard
               key={product.id}
@@ -67,7 +69,7 @@ export default async function CategoriesPage() {
         <div className="title">
           <h2>Collabs</h2>
         </div>
-        <div className="products-list flex flex-auto justify-between">
+        <div className="products-list grid grid-cols-4 justify-between">
           {groupedProducts[4]?.map((product) => (
             <ProductCard
               key={product.id}
@@ -83,7 +85,7 @@ export default async function CategoriesPage() {
         <div className="title">
           <h2>Marcas</h2>
         </div>
-        <div className="products-list flex flex-auto justify-between">
+        <div className="products-list grid grid-cols-4 justify-between">
           {groupedProducts[5]?.map((product) => (
             <ProductCard
               key={product.id}

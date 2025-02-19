@@ -54,7 +54,7 @@ export default function Home() {
       </div>
       <div className="new-products">
         <div className="title">
-          <h2>Lancamentos</h2>
+          <h2>Lançamentos</h2>
         </div>
       </div>
     </main>
