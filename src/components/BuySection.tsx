@@ -126,7 +126,7 @@ export const BuySection = ({
               //   setShowOption(!showOption);
               const phoneN = "258845398661";
               const message = encodeURIComponent(
-                `Eu quero ${quantityValue} ${name} no tamanho ${selectedSize?.size.toLocaleUpperCase()}`
+                `Eu quero ${quantityValue} "${name}" no tamanho: ${selectedSize?.size.toLocaleUpperCase()}`
               );
               const whatsappUrl = `https://wa.me/${phoneN}?text=${message}%0A${imageUrl}`;
 
