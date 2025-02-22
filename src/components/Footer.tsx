@@ -57,8 +57,15 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <div className="ousadia-media p-4 items-center">
-              <p>playlist</p>
+            <div className="ousadia-media flex p-4 items-center ">
+              <iframe
+                width="100%"
+                height="100"
+                // scrolling="no"
+                // frameborder="no"
+                // allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1637922391&color=%233c6c7c&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+              ></iframe>
             </div>
           </div>
 
